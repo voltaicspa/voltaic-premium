@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voltaic | Ingeniería y Soberanía Tecnológica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<a id="wa-float" href="https://wa.me/56935208529?text=Hola%20Voltaic%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="28" height="28">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+  <span class="wa-tooltip">¿Hablamos?</span>
+</a>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">⚡</span> Voltaic
+            </div>
+            <ul class="nav-links">
+                <li><a href="#hero">Plataforma</a></li>
+                <li><a href="#flujo-n8n">Orquestación</a></li>
+                <li><a href="#agente-ia">Agentes IA</a></li>
+                <li><a href="#talento">Ingeniería del Talento</a></li>
+                <li><a href="#infraestructura">Infraestructura</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero" id="hero">
+        <div class="hero-content sr-left">
+            <div class="badge">SISTEMAS AUTÓNOMOS V2.0</div>
+            <h1>Deje que las automatizaciones hagan lo repetitivo. Deje que su Capital Humano haga crecer su negocio.</h1>
+            <p>Ingeniería de clase mundial enfocada en la Soberanía Tecnológica. Sustituimos la fricción operativa por ecosistemas digitales propios, seguros y de alto rendimiento.</p>
+            <div class="hero-actions">
+                <button class="btn-primary">Explorar Infraestructura</button>
+                <button class="btn-secondary">Auditoría Técnica</button>
+            </div>
+        </div>
+        <div class="hero-visual" id="hero-visual">
+            <div id="canvas-container"></div>
+        </div>
+    </header>
+
+    <section id="flujo-n8n" class="n8n-canvas-section sr-bottom">
+        <div class="container">
+            <div class="section-header">
+                <h2>Lienzo de Orquestación</h2>
+                <p>Así se ve su soberanía técnica: flujos de datos reales construyéndose y operando 24/7.</p>
+            </div>
+            <div class="n8n-editor-wrapper">
+                <div class="n8n-canvas" id="n8n-animated-canvas">
+                    <div class="n8n-real-node trigger node-1">
+                        <div class="n8n-node-header"><span class="icon">⚡</span> Webhook</div>
+                        <div class="n8n-node-body">Start</div>
+                    </div>
+                    <div class="n8n-connection-line line-1"></div>
+                    <div class="n8n-real-node action node-2">
+                        <div class="n8n-node-header"><span class="icon">📦</span> HTTP Request</div>
+                        <div class="n8n-node-body">Read ERP</div>
+                    </div>
+                    <div class="n8n-connection-line line-2"></div>
+                    <div class="n8n-real-node action node-3">
+                        <div class="n8n-node-header"><span class="icon">🏛️</span> GraphQL</div>
+                        <div class="n8n-node-body">SII Sync</div>
+                    </div>
+                    <div class="n8n-connection-line line-3"></div>
+                    <div class="n8n-real-node success-node node-4">
+                        <div class="n8n-node-header"><span class="icon">✔️</span> Terminate</div>
+                        <div class="n8n-node-body">Success</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="kpi-section sr-bottom">
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-value"><span class="counter" data-target="-85">-85</span>%</div>
+                <div class="kpi-label">Errores Operativos</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value">+<span class="counter" data-target="160">160</span></div>
+                <div class="kpi-label">Horas Liberadas / Mes</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value"><span class="counter" data-target="100">100</span>%</div>
+                <div class="kpi-label">Soberanía Técnica</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="agente-ia" class="agente-section sr-bottom">
+        <div class="container">
+            <div class="section-header">
+                <div class="badge">DEMO EN VIVO · IA REAL</div>
+                <h2 style="margin-top:1rem;">Tu equipo de ventas IA. <span style="font-style:italic;color:var(--accent);">Pruébalo ahora.</span></h2>
+                <p>Elige un canal y escribe como si fueras un cliente. El agente responde con IA real y al final presenta una propuesta personalizada.</p>
+            </div>
+            <div style="display:flex;justify-content:center;padding:0 1rem;">
+                <iframe
+                    src="/agentes.html"
+                    allow="clipboard-write"
+                    loading="lazy"
+                    title="Agente IA Voltaic en vivo"
+                    style="width:100%;max-width:500px;height:860px;border:none;border-radius:16px;box-shadow:0 0 60px rgba(16,185,129,0.15),0 20px 60px rgba(0,0,0,0.5);">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <section id="talento" class="talent-section">
+        <div class="container">
+            <div class="section-header sr-bottom">
+                <h2>Ingeniería del Talento</h2>
+                <p>Pagar sueldos profesionales por tareas mecánicas es un error financiero crítico.</p>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card friction sr-left">
+                    <h3>El Modelo de "Fricción"</h3>
+                    <ul>
+                        <li><span>[WARN]</span> Empleados transcribiendo datos entre plataformas.</li>
+                        <li><span>[WARN]</span> Alta tasa de errores por fatiga de datos.</li>
+                        <li><span>[WARN]</span> Dependencia de suscripciones SaaS de terceros.</li>
+                        <li><span>[WARN]</span> Cuellos de botella dependientes de una sola persona.</li>
+                    </ul>
+                </div>
+                <div class="comparison-card ecosistema sr-right">
+                    <h3>Ecosistema Voltaic</h3>
+                    <ul>
+                        <li><span>[SYNC]</span> Interconexión automatizada vía APIs y Webhooks.</li>
+                        <li><span>[PASS]</span> Precisión algorítmica 24/7 sin degradación.</li>
+                        <li><span>[PASS]</span> Propiedad intelectual y de infraestructura (Soberanía).</li>
+                        <li><span>[SYNC]</span> Escalabilidad lineal sin aumentar costos de RRHH.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="infraestructura" class="infra-section">
+        <div class="container">
+            <h2 class="sr-bottom" style="text-align: center; margin-bottom: 4rem;">División de Infraestructura</h2>
+            <div class="infra-grid">
+                <div class="infra-card sr-bottom">
+                    <div class="card-icon">01</div>
+                    <h3>RPA Avanzado</h3>
+                    <p class="tech-stack">STACK: Python / n8n / Node.js</p>
+                    <p>Automatización robótica de procesos personalizada. Orquestación de flujos de trabajo complejos, integración de bases de datos y manipulación de datos en tiempo real.</p>
+                </div>
+                <div class="infra-card sr-bottom" style="transition-delay: 100ms;">
+                    <div class="card-icon">02</div>
+                    <h3>Seguridad IA Proactiva</h3>
+                    <p class="tech-stack">STACK: TensorFlow / OpenCV</p>
+                    <p>Implementación de visión artificial y modelos predictivos para monitoreo de instalaciones. Alertas tempranas y reconocimiento perimetral integrado.</p>
+                </div>
+                <div class="infra-card sr-bottom" style="transition-delay: 200ms;">
+                    <div class="card-icon">03</div>
+                    <h3>Ingeniería Eléctrica</h3>
+                    <p class="tech-stack">COMPLIANCE: Normativa RIC / SEC</p>
+                    <p>Diseño y ejecución de tableros de control, sistemas fotovoltaicos e infraestructura eléctrica de potencia garantizando cumplimiento normativo absoluto.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="matrix-section sr-bottom">
+        <div class="container">
+            <div class="section-header">
+                <h2>Matriz Patrimonial</h2>
+                <p>El valor de poseer su propia tecnología frente al alquiler eterno.</p>
+            </div>
+            <div class="table-responsive">
+                <table class="patrimony-table">
+                    <thead>
+                        <tr>
+                            <th>Métrica</th>
+                            <th>Gasto Eterno SaaS (Tradicional)</th>
+                            <th class="highlight-col">Activo Propio (Ingeniería Voltaic)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="tech-font">Control de Datos</td>
+                            <td>Alojados en servidores de terceros</td>
+                            <td class="highlight-col">100% On-Premise o Cloud Propio</td>
+                        </tr>
+                        <tr>
+                            <td class="tech-font">Estructura de Costos</td>
+                            <td>Pago mensual/anual ascendente por usuario</td>
+                            <td class="highlight-col">Inversión inicial (CAPEX) + Mantenimiento bajo</td>
+                        </tr>
+                        <tr>
+                            <td class="tech-font">Valor de la Empresa</td>
+                            <td>No genera activos tecnológicos propios</td>
+                            <td class="highlight-col">Aumenta la valorización por propiedad de IP</td>
+                        </tr>
+                        <tr>
+                            <td class="tech-font">Personalización</td>
+                            <td>Limitada a lo que ofrece el proveedor</td>
+                            <td class="highlight-col">Arquitectura a medida de su proceso de negocio</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="tech-font">> SYS.LOG: Voltaic © 2026. Todos los derechos de soberanía reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Botón flotante agente IA -->
+    <div id="vlt-fab">
+        <span id="vlt-fab-tooltip">Habla con un agente IA</span>
+        <button id="vlt-fab-btn" onclick="toggleFab()" aria-label="Abrir agente IA">
+            <svg id="fab-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <svg id="fab-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+    </div>
+    <div id="vlt-fab-panel">
+        <iframe src="/agentes.html" allow="clipboard-write" title="Agente IA Voltaic"></iframe>
+    </div>
+
+    <script>
+        function toggleFab() {
+            var p = document.getElementById('vlt-fab-panel');
+            var o = document.getElementById('fab-icon-open');
+            var c = document.getElementById('fab-icon-close');
+            var open = p.style.display === 'block';
+            p.style.display = open ? 'none' : 'block';
+            o.style.display = open ? 'block' : 'none';
+            c.style.display = open ? 'none' : 'block';
+        }
+    </script>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
