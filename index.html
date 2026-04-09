@@ -19,12 +19,9 @@
 </a>
 
 <body>
-
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">
-                <span class="logo-icon">⚡</span> Voltaic
-            </div>
+            <div class="logo"><span class="logo-icon">⚡</span> Voltaic</div>
             <ul class="nav-links">
                 <li><a href="#hero">Plataforma</a></li>
                 <li><a href="#flujo-n8n">Orquestación</a></li>
@@ -106,14 +103,8 @@
                 <h2 style="margin-top:1rem;">Tu equipo de ventas IA. <span style="font-style:italic;color:var(--accent);">Pruébalo ahora.</span></h2>
                 <p>Elige un canal y escribe como si fueras un cliente. El agente responde con IA real y al final presenta una propuesta personalizada.</p>
             </div>
-            <div style="display:flex;justify-content:center;padding:0 1rem;">
-                <iframe
-                    src="/agentes.html"
-                    allow="clipboard-write"
-                    loading="lazy"
-                    title="Agente IA Voltaic en vivo"
-                    style="width:100%;max-width:500px;height:860px;border:none;border-radius:16px;box-shadow:0 0 60px rgba(16,185,129,0.15),0 20px 60px rgba(0,0,0,0.5);">
-                </iframe>
+            <div style="display:flex;justify-content:center;padding:0 1rem;margin-top:2rem;">
+                <iframe src="/agentes.html" allow="clipboard-write" loading="lazy" title="Agente IA Voltaic en vivo" style="width:100%;max-width:500px;height:860px;border:none;border-radius:16px;box-shadow:0 0 60px rgba(16,185,129,0.15),0 20px 60px rgba(0,0,0,0.5);"></iframe>
             </div>
         </div>
     </section>
@@ -149,7 +140,7 @@
 
     <section id="infraestructura" class="infra-section">
         <div class="container">
-            <h2 class="sr-bottom" style="text-align: center; margin-bottom: 4rem;">División de Infraestructura</h2>
+            <h2 class="sr-bottom" style="text-align:center;margin-bottom:4rem;">División de Infraestructura</h2>
             <div class="infra-grid">
                 <div class="infra-card sr-bottom">
                     <div class="card-icon">01</div>
@@ -157,13 +148,13 @@
                     <p class="tech-stack">STACK: Python / n8n / Node.js</p>
                     <p>Automatización robótica de procesos personalizada. Orquestación de flujos de trabajo complejos, integración de bases de datos y manipulación de datos en tiempo real.</p>
                 </div>
-                <div class="infra-card sr-bottom" style="transition-delay: 100ms;">
+                <div class="infra-card sr-bottom" style="transition-delay:100ms;">
                     <div class="card-icon">02</div>
                     <h3>Seguridad IA Proactiva</h3>
                     <p class="tech-stack">STACK: TensorFlow / OpenCV</p>
                     <p>Implementación de visión artificial y modelos predictivos para monitoreo de instalaciones. Alertas tempranas y reconocimiento perimetral integrado.</p>
                 </div>
-                <div class="infra-card sr-bottom" style="transition-delay: 200ms;">
+                <div class="infra-card sr-bottom" style="transition-delay:200ms;">
                     <div class="card-icon">03</div>
                     <h3>Ingeniería Eléctrica</h3>
                     <p class="tech-stack">COMPLIANCE: Normativa RIC / SEC</p>
@@ -221,12 +212,10 @@
         </div>
     </footer>
 
-    <!-- Botón flotante agente IA -->
     <div id="vlt-fab">
-        <span id="vlt-fab-tooltip">Habla con un agente IA</span>
         <button id="vlt-fab-btn" onclick="toggleFab()" aria-label="Abrir agente IA">
-            <svg id="fab-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            <svg id="fab-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <svg id="fab-icon-open" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <svg id="fab-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
     </div>
     <div id="vlt-fab-panel">
@@ -234,14 +223,14 @@
     </div>
 
     <script>
-        function toggleFab() {
-            var p = document.getElementById('vlt-fab-panel');
-            var o = document.getElementById('fab-icon-open');
-            var c = document.getElementById('fab-icon-close');
-            var open = p.style.display === 'block';
-            p.style.display = open ? 'none' : 'block';
-            o.style.display = open ? 'block' : 'none';
-            c.style.display = open ? 'none' : 'block';
+        function toggleFab(){
+            var p=document.getElementById('vlt-fab-panel');
+            var o=document.getElementById('fab-icon-open');
+            var c=document.getElementById('fab-icon-close');
+            var open=p.style.display==='block';
+            p.style.display=open?'none':'block';
+            o.style.display=open?'block':'none';
+            c.style.display=open?'none':'block';
         }
     </script>
 
