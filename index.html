@@ -64,26 +64,21 @@ nav{
   background:radial-gradient(circle,rgba(0,255,135,0.08) 0%,transparent 70%);
   pointer-events:none;
 }
-.hero-tag{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--accent-dim);border:1px solid rgba(0,255,135,0.2);
-  border-radius:100px;padding:5px 14px;
-  font-family:var(--font-mono);font-size:0.75rem;color:var(--accent);
-  margin-bottom:2rem;width:fit-content;
-}
-.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(0.8)}}
+
+/* AJUSTE CLAVE: Tipografía masiva y pegada para replicar el diseño */
 .hero h1{
   font-family:var(--font-display);
-  font-size:clamp(3rem,7vw,6rem);
-  font-weight:800;line-height:1;
-  letter-spacing:-2px;
-  max-width:800px;
-  margin-bottom:1.5rem;
+  font-size:clamp(4rem, 13vw, 11rem);
+  font-weight:800;
+  line-height:0.85; 
+  letter-spacing:-3px;
+  margin-bottom:2rem;
+  text-transform:lowercase;
 }
 .hero h1 .accent{color:var(--accent)}
 .hero h1 .dim{color:var(--muted)}
-.hero-sub{font-size:1.1rem;color:var(--muted);max-width:480px;margin-bottom:3rem;line-height:1.7}
+
+.hero-sub{font-size:1.1rem;color:var(--muted);max-width:520px;margin-bottom:3rem;line-height:1.7}
 .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:4rem}
 .btn-primary{background:var(--accent);color:#000;border:none;border-radius:10px;padding:14px 28px;font-size:1rem;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all .2s;text-decoration:none;display:inline-block}
 .btn-primary:hover{background:#00E87A;transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,255,135,0.3)}
@@ -240,6 +235,7 @@ footer{
   footer{flex-direction:column;align-items:flex-start;padding:2rem 1.5rem}
 }
 @media(max-width:640px){
+  .hero h1{font-size:clamp(4rem, 18vw, 6rem); letter-spacing:-1px;} /* Ajuste móvil */
   .como-grid{grid-template-columns:1fr}
   #vlt-fab-panel{width:calc(100vw - 32px);right:16px;bottom:80px;height:70vh}
   .cta-final{padding:5rem 1.5rem}
@@ -247,7 +243,6 @@ footer{
 </style>
 </head>
 
-<!-- WhatsApp flotante -->
 <a id="wa-float" href="https://wa.me/56935208529?text=Hola%20Voltaic%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.845L.057 23.522a.5.5 0 0 0 .625.605l5.803-1.522A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.955 9.955 0 0 1-5.23-1.41l-.375-.22-3.888 1.02 1.037-3.793-.243-.39A9.955 9.955 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
   <span class="wa-tip">¿Hablamos?</span>
@@ -255,7 +250,6 @@ footer{
 
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
     <div class="nav-logo-icon">
@@ -272,11 +266,13 @@ footer{
   <a href="#contacto" class="nav-cta">Diagnóstico gratis</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="hero">
   <div class="hero-glow"></div>
-  <div class="hero-tag"><span class="hero-dot"></span>Automatización con IA · Chile 2026</div>
-  <h1>Tu negocio<br><span class="accent">vendiendo solo.</span><br><span class="dim">24/7.</span></h1>
+  <h1>
+    negocio<br>
+    <span class="accent">vendiendo<br>solo.</span><br>
+    <span class="dim">24/7.</span>
+  </h1>
   <p class="hero-sub">Construimos agentes IA que atienden clientes, cobran facturas y cierran ventas en WhatsApp, Instagram, Facebook, tu web y más — sin que tú estés presente.</p>
   <div class="hero-actions">
     <a href="#agente" class="btn-primary">Prueba el agente ahora</a>
@@ -302,7 +298,6 @@ footer{
   </div>
 </section>
 
-<!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
     <span class="ticker-item">WhatsApp IA</span>
@@ -328,7 +323,6 @@ footer{
   </div>
 </div>
 
-<!-- SERVICIOS -->
 <section class="services" id="servicios">
   <div class="section-tag">// servicios</div>
   <div class="section-title">6 automatizaciones.<br>Resultados reales.</div>
@@ -379,7 +373,6 @@ footer{
   </div>
 </section>
 
-<!-- AGENTE EN VIVO -->
 <section class="agente" id="agente">
   <div class="section-tag">// demo_en_vivo</div>
   <div class="section-title">Habla con el agente.<br>Ahora mismo.</div>
@@ -401,7 +394,6 @@ footer{
   </div>
 </section>
 
-<!-- COMO FUNCIONA -->
 <section class="como" id="como">
   <div class="section-tag">// proceso</div>
   <div class="section-title">De cero a funcionando<br>en 2 semanas.</div>
@@ -429,7 +421,6 @@ footer{
   </div>
 </section>
 
-<!-- PRECIOS -->
 <section class="precios" id="precios">
   <div class="section-tag">// precios</div>
   <div class="section-title">Inversión directa.<br>Sin letra chica.</div>
@@ -475,7 +466,6 @@ footer{
   </div>
 </section>
 
-<!-- CTA FINAL -->
 <section class="cta-final" id="contacto">
   <h2>¿Cuántas horas pierde tu negocio<br>en cosas que la IA puede <em>hacer sola</em>?</h2>
   <p>30 minutos. Sin costo. Te decimos exactamente qué automatizar primero.</p>
@@ -483,7 +473,6 @@ footer{
   <p class="cta-note">Sin compromiso · Diagnóstico 100% gratuito · Resultado en 30 minutos</p>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-logo">
     <div class="footer-logo-icon">
@@ -498,7 +487,6 @@ footer{
   </div>
 </footer>
 
-<!-- FAB AGENTE -->
 <div id="vlt-fab">
   <span id="vlt-fab-tip">Habla con un agente IA</span>
   <button id="vlt-fab-btn" onclick="toggleFab()" aria-label="Abrir agente IA">
