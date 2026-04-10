@@ -3,249 +3,258 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Voltaic Automatizaciones — IA para tu negocio</title>
+<title>Voltaic Automatizaciones — Tu equipo de ventas IA 24/7</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ── RESET & VARIABLES ──────────────────────────── */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#080C10;
-  --bg2:#0D1117;
-  --bg3:#111820;
-  --accent:#00FF87;
-  --accent2:#00C868;
-  --accent-dim:rgba(0,255,135,0.12);
-  --accent-glow:rgba(0,255,135,0.25);
-  --text:#F0F6FC;
-  --muted:#7D8590;
-  --border:rgba(255,255,255,0.08);
-  --font-display:'Syne',sans-serif;
-  --font-body:'DM Sans',sans-serif;
-  --font-mono:'JetBrains Mono',monospace;
+  --bg:#080C10;--bg2:#0D1117;--bg3:#111820;
+  --accent:#00FF87;--accent2:#00C868;
+  --accent-dim:rgba(0,255,135,0.1);--accent-glow:rgba(0,255,135,0.2);
+  --text:#F0F6FC;--muted:#7D8590;--border:rgba(255,255,255,0.08);
+  --font-display:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;--font-mono:'JetBrains Mono',monospace;
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:300;line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,255,135,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,135,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
 
-/* ── GRID BACKGROUND ────────────────────────────── */
-body::before{
-  content:'';position:fixed;inset:0;
-  background-image:linear-gradient(rgba(0,255,135,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,135,0.03) 1px,transparent 1px);
-  background-size:60px 60px;pointer-events:none;z-index:0
-}
-
-/* ── NAVBAR ─────────────────────────────────────── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1.25rem 3rem;
-  background:rgba(8,12,16,0.85);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-}
-.nav-logo{font-family:var(--font-display);font-size:1.1rem;font-weight:800;color:var(--text);letter-spacing:-0.3px;text-decoration:none;display:flex;align-items:center;gap:8px}
-.nav-logo-icon{width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;background:rgba(8,12,16,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:8px}
+.nav-logo-icon{width:26px;height:26px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-family:var(--font-mono);transition:color .2s}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.85rem;font-family:var(--font-mono);transition:color .2s}
 .nav-links a:hover{color:var(--accent)}
-.nav-cta{background:var(--accent);color:#000;border:none;border-radius:8px;padding:9px 20px;font-size:0.875rem;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all .2s;text-decoration:none}
+.nav-cta{background:var(--accent);color:#000;border:none;border-radius:8px;padding:9px 18px;font-size:0.85rem;font-weight:700;cursor:pointer;font-family:var(--font-body);transition:all .2s;text-decoration:none;white-space:nowrap}
 .nav-cta:hover{background:#00E87A;transform:translateY(-1px)}
+.nav-hamburger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
+.nav-hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px;display:block;transition:all .3s}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(8,12,16,0.98);border-bottom:1px solid var(--border);padding:1.5rem;z-index:99;flex-direction:column;gap:1rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--muted);text-decoration:none;font-size:1rem;font-family:var(--font-mono);padding:.5rem 0;border-bottom:1px solid var(--border)}
+.mobile-menu a:last-child{border:none}
 
-/* ── HERO ───────────────────────────────────────── */
-.hero{
-  min-height:100vh;display:flex;flex-direction:column;
-  justify-content:center;padding:8rem 3rem 4rem;
-  position:relative;overflow:hidden;
-}
-.hero-glow{
-  position:absolute;top:-200px;right:-200px;
-  width:600px;height:600px;border-radius:50%;
-  background:radial-gradient(circle,rgba(0,255,135,0.08) 0%,transparent 70%);
-  pointer-events:none;
-}
-
-/* AJUSTE CLAVE: Tipografía masiva y pegada para replicar el diseño */
-.hero h1{
-  font-family:var(--font-display);
-  font-size:clamp(4rem, 13vw, 11rem);
-  font-weight:800;
-  line-height:0.85; 
-  letter-spacing:-3px;
-  margin-bottom:2rem;
-  text-transform:lowercase;
-}
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;padding:8rem 3rem 4rem;position:relative;overflow:hidden}
+.hero-content{display:flex;flex-direction:column}
+.hero-visual{display:flex;align-items:center;justify-content:center;position:relative}
+.hero-visual-card{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:1.5rem;width:100%;max-width:420px;position:relative}
+.hero-visual-card::before{content:'';position:absolute;inset:-1px;border-radius:20px;background:linear-gradient(135deg,rgba(0,255,135,0.15),transparent 60%);pointer-events:none}
+.hvc-tag{font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:6px}
+.hvc-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+.hvc-channels{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.25rem}
+.hvc-ch{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;border-radius:10px;border:1px solid var(--border);background:var(--bg)}
+.hvc-ch-left{display:flex;align-items:center;gap:.6rem;font-size:.85rem}
+.hvc-ch-dot{width:7px;height:7px;border-radius:50%}
+.hvc-ch-stat{font-family:var(--font-mono);font-size:.75rem;color:var(--accent)}
+.hvc-footer{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border)}
+.hvc-footer-stat{text-align:center}
+.hvc-footer-val{font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--accent)}
+.hvc-footer-lbl{font-size:.7rem;color:var(--muted);font-family:var(--font-mono)}
+.hero-glow{position:absolute;top:-150px;right:-150px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,135,0.07) 0%,transparent 70%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-dim);border:1px solid rgba(0,255,135,0.2);border-radius:100px;padding:5px 14px;font-family:var(--font-mono);font-size:0.72rem;color:var(--accent);margin-bottom:1.75rem;width:fit-content}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,4rem);font-weight:800;line-height:1.1;letter-spacing:-1.5px;max-width:700px;margin-bottom:1.25rem}
 .hero h1 .accent{color:var(--accent)}
 .hero h1 .dim{color:var(--muted)}
-
-.hero-sub{font-size:1.1rem;color:var(--muted);max-width:520px;margin-bottom:3rem;line-height:1.7}
-.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:4rem}
-.btn-primary{background:var(--accent);color:#000;border:none;border-radius:10px;padding:14px 28px;font-size:1rem;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all .2s;text-decoration:none;display:inline-block}
-.btn-primary:hover{background:#00E87A;transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,255,135,0.3)}
-.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:14px 28px;font-size:1rem;cursor:pointer;font-family:var(--font-body);transition:all .2s;text-decoration:none;display:inline-block}
+.hero-sub{font-size:1.05rem;color:var(--muted);max-width:520px;margin-bottom:2.5rem;line-height:1.75}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:3.5rem}
+.btn-primary{background:var(--accent);color:#000;border:none;border-radius:10px;padding:13px 26px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:var(--font-body);transition:all .2s;text-decoration:none;display:inline-block}
+.btn-primary:hover{background:#00E87A;transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,255,135,0.25)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:13px 26px;font-size:.95rem;cursor:pointer;font-family:var(--font-body);transition:all .2s;text-decoration:none;display:inline-block}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
-.hero-stats{display:flex;gap:3rem;padding-top:3rem;border-top:1px solid var(--border)}
-.stat-val{font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:var(--text);line-height:1}
+.hero-stats{display:flex;gap:2.5rem;padding-top:2.5rem;border-top:1px solid var(--border);flex-wrap:wrap}
+.stat-val{font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--text);line-height:1}
 .stat-val span{color:var(--accent)}
-.stat-lbl{font-size:0.8rem;color:var(--muted);margin-top:4px;font-family:var(--font-mono)}
+.stat-lbl{font-size:0.75rem;color:var(--muted);margin-top:4px;font-family:var(--font-mono)}
 
-/* ── TICKER ─────────────────────────────────────── */
-.ticker{
-  padding:1rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-  background:var(--bg2);overflow:hidden;white-space:nowrap;
-}
-.ticker-inner{display:inline-flex;gap:4rem;animation:ticker 20s linear infinite}
+/* TICKER */
+.ticker{padding:.85rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2);overflow:hidden;white-space:nowrap}
+.ticker-inner{display:inline-flex;gap:3rem;animation:ticker 25s linear infinite}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ticker-item{font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);display:flex;align-items:center;gap:8px}
+.ticker-item{font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);display:flex;align-items:center;gap:8px}
 .ticker-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--accent)}
 
-/* ── SECCIONES GENÉRICAS ────────────────────────── */
-section{padding:6rem 3rem;position:relative;z-index:1}
-.section-tag{font-family:var(--font-mono);font-size:0.75rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem}
-.section-title{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:1rem}
-.section-sub{font-size:1rem;color:var(--muted);max-width:480px;line-height:1.7}
+/* PROPUESTA DE VALOR */
+.valor{padding:5rem 3rem;background:var(--bg);position:relative;z-index:1}
+.valor-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3rem}
+.valor-copy p{font-size:1.05rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem}
+.valor-copy strong{color:var(--text)}
+.valor-items{display:flex;flex-direction:column;gap:1rem}
+.valor-item{display:flex;gap:1rem;padding:1.25rem;border:1px solid var(--border);border-radius:12px;transition:border-color .2s}
+.valor-item:hover{border-color:rgba(0,255,135,0.3)}
+.valor-item-icon{width:40px;height:40px;border-radius:10px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.valor-item-title{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:.25rem}
+.valor-item-desc{font-size:0.85rem;color:var(--muted);line-height:1.5}
 
-/* ── SERVICIOS ──────────────────────────────────── */
-.services{background:var(--bg2)}
+/* SERVICIOS */
+.services{background:var(--bg2);padding:5rem 3rem;position:relative;z-index:1}
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:3rem}
 .service-card{background:var(--bg2);padding:2rem;transition:background .2s;position:relative;overflow:hidden}
 .service-card:hover{background:var(--bg3)}
 .service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .3s;transform-origin:left}
 .service-card:hover::before{transform:scaleX(1)}
-.service-num{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);margin-bottom:1.25rem}
-.service-icon{width:40px;height:40px;border-radius:10px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
-.service-name{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:.5rem}
-.service-desc{font-size:0.875rem;color:var(--muted);line-height:1.6;margin-bottom:1rem}
-.service-price{font-family:var(--font-mono);font-size:0.8rem;color:var(--accent);background:var(--accent-dim);display:inline-block;padding:3px 10px;border-radius:100px}
+.service-num{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);margin-bottom:1rem}
+.service-icon{width:40px;height:40px;border-radius:10px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;margin-bottom:.85rem}
+.service-name{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:.4rem}
+.service-desc{font-size:0.85rem;color:var(--muted);line-height:1.6;margin-bottom:.85rem}
+.service-price{font-family:var(--font-mono);font-size:0.75rem;color:var(--accent);background:var(--accent-dim);display:inline-block;padding:3px 10px;border-radius:100px}
 
-/* ── AGENTE IA ──────────────────────────────────── */
-.agente{background:var(--bg)}
-.agente-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:3rem}
-.agente-copy h3{font-family:var(--font-display);font-size:1.5rem;font-weight:700;margin-bottom:1rem}
-.agente-copy p{color:var(--muted);line-height:1.7;margin-bottom:1.5rem;font-size:0.95rem}
-.agente-features{display:flex;flex-direction:column;gap:.75rem;margin-bottom:2rem}
-.agente-feat{display:flex;align-items:center;gap:.75rem;font-size:0.9rem}
-.agente-feat-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0}
-.agente-frame{border-radius:20px;overflow:hidden;border:1px solid var(--border);box-shadow:0 0 80px rgba(0,255,135,0.08)}
-.agente-frame iframe{width:100%;height:780px;border:none;display:block}
+/* CASOS DE NEGOCIO */
+.casos{padding:5rem 3rem;background:var(--bg);position:relative;z-index:1}
+.casos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.caso-card{border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .3s;cursor:pointer}
+.caso-card:hover{border-color:rgba(0,255,135,0.3);transform:translateY(-4px)}
+.caso-img{width:100%;height:180px;object-fit:cover;display:block;background:var(--bg3)}
+.caso-img-placeholder{width:100%;height:180px;display:flex;align-items:center;justify-content:center;font-size:3rem;background:var(--bg3)}
+.caso-body{padding:1.5rem}
+.caso-sector{font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
+.caso-title{font-family:var(--font-display);font-size:1.05rem;font-weight:700;margin-bottom:.5rem;line-height:1.3}
+.caso-desc{font-size:0.85rem;color:var(--muted);line-height:1.6;margin-bottom:1rem}
+.caso-metrics{display:flex;gap:.75rem;flex-wrap:wrap}
+.caso-metric{background:var(--accent-dim);border-radius:8px;padding:.4rem .75rem}
+.caso-metric-val{font-size:1rem;font-weight:700;color:var(--accent);font-family:var(--font-display)}
+.caso-metric-lbl{font-size:0.7rem;color:var(--muted);font-family:var(--font-mono)}
 
-/* ── COMO FUNCIONA ──────────────────────────────── */
-.como{background:var(--bg2)}
-.como-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:3rem}
-.paso{padding:1.5rem;border:1px solid var(--border);border-radius:14px;position:relative;transition:border-color .2s}
+/* AGENTE EN VIVO */
+.agente{background:var(--bg2);padding:5rem 3rem;position:relative;z-index:1}
+.agente-inner{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start;margin-top:3rem}
+.agente-copy h3{font-family:var(--font-display);font-size:1.4rem;font-weight:700;margin-bottom:.85rem;line-height:1.3}
+.agente-copy p{color:var(--muted);line-height:1.75;margin-bottom:1.25rem;font-size:.95rem}
+.agente-features{display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.75rem}
+.agente-feat{display:flex;align-items:flex-start;gap:.75rem;font-size:0.875rem;line-height:1.5}
+.agente-feat-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px}
+.agente-frame{border-radius:20px;overflow:hidden;border:1px solid var(--border);box-shadow:0 0 60px rgba(0,255,135,0.06)}
+.agente-frame iframe{width:100%;height:820px;border:none;display:block}
+
+/* COMO FUNCIONA */
+.como{background:var(--bg);padding:5rem 3rem;position:relative;z-index:1}
+.como-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+.paso{padding:1.5rem;border:1px solid var(--border);border-radius:14px;transition:border-color .2s}
 .paso:hover{border-color:rgba(0,255,135,0.3)}
-.paso-num{font-family:var(--font-display);font-size:3rem;font-weight:800;color:rgba(0,255,135,0.1);line-height:1;margin-bottom:.75rem}
-.paso-title{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:.5rem}
-.paso-desc{font-size:0.85rem;color:var(--muted);line-height:1.6}
+.paso-num{font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:rgba(0,255,135,0.12);line-height:1;margin-bottom:.65rem}
+.paso-title{font-family:var(--font-display);font-size:.95rem;font-weight:700;margin-bottom:.4rem}
+.paso-desc{font-size:0.82rem;color:var(--muted);line-height:1.6}
 
-/* ── PRECIOS ────────────────────────────────────── */
-.precios{background:var(--bg)}
-.precios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+/* PRECIOS */
+.precios{background:var(--bg2);padding:5rem 3rem;position:relative;z-index:1}
+.precios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;max-width:960px}
 .precio-card{border:1px solid var(--border);border-radius:16px;padding:2rem;transition:all .2s;position:relative}
-.precio-card:hover{border-color:rgba(0,255,135,0.2);transform:translateY(-4px)}
+.precio-card:hover{border-color:rgba(0,255,135,0.25);transform:translateY(-3px)}
 .precio-card.featured{border-color:var(--accent);background:rgba(0,255,135,0.03)}
-.precio-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;font-size:0.7rem;font-weight:700;padding:3px 12px;border-radius:100px;font-family:var(--font-mono);white-space:nowrap}
-.precio-name{font-size:0.8rem;color:var(--muted);font-family:var(--font-mono);margin-bottom:.5rem}
-.precio-val{font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:var(--text);margin-bottom:.25rem;line-height:1}
-.precio-period{font-size:0.8rem;color:var(--muted);margin-bottom:1.5rem;font-family:var(--font-mono)}
-.precio-features{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem}
-.precio-features li{font-size:0.875rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start}
-.precio-features li::before{content:'→';color:var(--accent);flex-shrink:0;font-size:0.8rem;margin-top:2px}
+.precio-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;font-size:0.68rem;font-weight:700;padding:3px 12px;border-radius:100px;font-family:var(--font-mono);white-space:nowrap}
+.precio-name{font-size:0.78rem;color:var(--muted);font-family:var(--font-mono);margin-bottom:.4rem}
+.precio-val{font-family:var(--font-display);font-size:2.2rem;font-weight:800;color:var(--text);margin-bottom:.2rem;line-height:1}
+.precio-period{font-size:0.75rem;color:var(--muted);margin-bottom:1.25rem;font-family:var(--font-mono)}
+.precio-features{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.5rem}
+.precio-features li{font-size:0.85rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start;line-height:1.5}
+.precio-features li::before{content:'→';color:var(--accent);flex-shrink:0;font-size:0.78rem;margin-top:2px}
 .precio-btn{width:100%;background:transparent;border:1px solid var(--border);border-radius:8px;padding:10px;font-size:0.875rem;color:var(--text);cursor:pointer;font-family:var(--font-body);transition:all .2s}
 .precio-btn:hover{border-color:var(--accent);color:var(--accent)}
-.precio-card.featured .precio-btn{background:var(--accent);color:#000;border-color:var(--accent)}
+.precio-card.featured .precio-btn{background:var(--accent);color:#000;border-color:var(--accent);font-weight:700}
 .precio-card.featured .precio-btn:hover{background:#00E87A}
 
-/* ── CTA FINAL ──────────────────────────────────── */
-.cta-final{
-  background:var(--bg2);text-align:center;
-  padding:8rem 3rem;position:relative;overflow:hidden;
-}
-.cta-final::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(0,255,135,0.05) 0%,transparent 70%);
-}
-.cta-final h2{font-family:var(--font-display);font-size:clamp(2rem,5vw,4rem);font-weight:800;line-height:1.1;letter-spacing:-1.5px;margin-bottom:1rem;position:relative}
-.cta-final h2 em{font-style:italic;color:var(--accent)}
-.cta-final p{color:var(--muted);margin-bottom:2.5rem;font-size:1rem;position:relative}
-.cta-note{font-size:0.8rem;color:var(--muted);margin-top:1rem;font-family:var(--font-mono)}
+/* ROI RAPIDO */
+.roi{padding:5rem 3rem;background:var(--bg);position:relative;z-index:1}
+.roi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+.roi-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center}
+.roi-num{font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:var(--accent);line-height:1;margin-bottom:.35rem}
+.roi-lbl{font-size:0.82rem;color:var(--muted);font-family:var(--font-mono);line-height:1.4}
 
-/* ── FOOTER ─────────────────────────────────────── */
-footer{
-  padding:2rem 3rem;border-top:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  background:var(--bg);flex-wrap:wrap;gap:1rem;
-}
-.footer-logo{font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px}
+/* CTA FINAL */
+.cta-final{background:var(--bg2);text-align:center;padding:7rem 3rem;position:relative;overflow:hidden;z-index:1}
+.cta-final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(0,255,135,0.05) 0%,transparent 70%)}
+.cta-final h2{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,3rem);font-weight:800;line-height:1.15;letter-spacing:-1px;margin-bottom:1rem;position:relative}
+.cta-final h2 em{font-style:italic;color:var(--accent)}
+.cta-final p{color:var(--muted);margin-bottom:2.5rem;font-size:1rem;position:relative;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-note{font-size:0.78rem;color:var(--muted);margin-top:1rem;font-family:var(--font-mono)}
+.cta-wa{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;border:none;border-radius:10px;padding:14px 28px;font-size:1rem;font-weight:700;cursor:pointer;font-family:var(--font-body);transition:all .2s;text-decoration:none}
+.cta-wa:hover{background:#20BA5A;transform:translateY(-2px)}
+
+/* FOOTER */
+footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bg);flex-wrap:wrap;gap:1rem;position:relative;z-index:1}
+.footer-logo{font-family:var(--font-display);font-size:.95rem;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px}
 .footer-logo-icon{width:22px;height:22px;background:var(--accent);border-radius:5px;display:flex;align-items:center;justify-content:center}
-.footer-copy{font-size:0.8rem;color:var(--muted);font-family:var(--font-mono)}
+.footer-copy{font-size:0.75rem;color:var(--muted);font-family:var(--font-mono)}
 .footer-links{display:flex;gap:1.5rem}
-.footer-links a{font-size:0.8rem;color:var(--muted);text-decoration:none;transition:color .2s}
+.footer-links a{font-size:0.75rem;color:var(--muted);text-decoration:none;transition:color .2s}
 .footer-links a:hover{color:var(--accent)}
 
-/* ── WHATSAPP FLOTANTE ──────────────────────────── */
-#wa-float{
-  position:fixed;bottom:24px;left:24px;z-index:9999;
-  width:56px;height:56px;border-radius:50%;
-  background:#25D366;display:flex;align-items:center;justify-content:center;
-  text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.4);
-  animation:wa-pulse 2.5s ease-in-out infinite;transition:transform .2s;
-}
+/* WHATSAPP FLOTANTE */
+#wa-float{position:fixed;bottom:24px;left:24px;z-index:9999;width:54px;height:54px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.4);animation:wa-pulse 2.5s ease-in-out infinite;transition:transform .2s}
 #wa-float:hover{transform:scale(1.1);animation:none}
 #wa-float:hover .wa-tip{opacity:1;transform:translateX(0)}
-.wa-tip{position:absolute;left:68px;background:#111;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:8px;white-space:nowrap;opacity:0;transform:translateX(-8px);transition:all .2s;pointer-events:none;font-family:var(--font-body)}
+.wa-tip{position:absolute;left:66px;background:#111;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:8px;white-space:nowrap;opacity:0;transform:translateX(-8px);transition:all .2s;pointer-events:none;font-family:var(--font-body)}
 @keyframes wa-pulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.4)}50%{box-shadow:0 4px 32px rgba(37,211,102,0.7)}}
 
-/* ── FAB AGENTE ─────────────────────────────────── */
+/* FAB AGENTE */
 #vlt-fab{position:fixed;bottom:24px;right:24px;z-index:9998}
-#vlt-fab-btn{
-  width:56px;height:56px;border-radius:50%;
-  background:var(--accent);border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(0,255,135,0.4);transition:transform .2s;padding:0;
-}
+#vlt-fab-btn{width:54px;height:54px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,255,135,0.4);transition:transform .2s;padding:0}
 #vlt-fab-btn:hover{transform:scale(1.08)}
-#vlt-fab-tip{
-  position:absolute;right:68px;top:50%;transform:translateY(-50%);
-  background:var(--bg3);color:var(--text);font-size:12px;font-weight:500;
-  padding:5px 12px;border-radius:8px;white-space:nowrap;
-  border:1px solid var(--border);opacity:0;transition:opacity .2s;
-  pointer-events:none;font-family:var(--font-body);
-}
+#vlt-fab-tip{position:absolute;right:66px;top:50%;transform:translateY(-50%);background:var(--bg3);color:var(--text);font-size:12px;font-weight:500;padding:5px 12px;border-radius:8px;white-space:nowrap;border:1px solid var(--border);opacity:0;transition:opacity .2s;pointer-events:none;font-family:var(--font-body)}
 #vlt-fab:hover #vlt-fab-tip{opacity:1}
-#vlt-fab-panel{
-  display:none;position:fixed;bottom:90px;right:24px;
-  width:380px;height:600px;border-radius:20px;overflow:hidden;
-  z-index:9997;border:1px solid rgba(0,255,135,0.2);
-  box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px rgba(0,255,135,0.08);
-}
+#vlt-fab-panel{display:none;position:fixed;bottom:88px;right:24px;width:390px;height:640px;border-radius:20px;overflow:hidden;z-index:9997;border:1px solid rgba(0,255,135,0.2);box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px rgba(0,255,135,0.06)}
 #vlt-fab-panel iframe{width:100%;height:100%;border:none}
 
-/* ── RESPONSIVE ─────────────────────────────────── */
+/* SECTION HELPERS */
+section,.valor,.services,.casos,.agente,.como,.precios,.roi,.cta-final{position:relative;z-index:1}
+.section-tag{font-family:var(--font-mono);font-size:0.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.85rem}
+.section-title{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:.85rem}
+.section-sub{font-size:.95rem;color:var(--muted);max-width:480px;line-height:1.7}
+
+/* RESPONSIVE TABLET */
 @media(max-width:1024px){
   nav{padding:1rem 1.5rem}
   .nav-links{display:none}
-  .hero{padding:6rem 1.5rem 3rem}
-  section{padding:4rem 1.5rem}
+  .nav-hamburger{display:flex}
+  .hero{grid-template-columns:1fr;padding:6rem 1.5rem 3rem;gap:2rem}
+  .hero-visual{display:none}
+  .valor,.services,.casos,.agente,.como,.precios,.roi,.cta-final{padding:4rem 1.5rem}
+  footer{padding:1.5rem}
+  .valor-grid{grid-template-columns:1fr;gap:3rem}
   .agente-inner{grid-template-columns:1fr}
-  .services-grid{grid-template-columns:1fr}
+  .agente-frame iframe{height:700px}
+  .services-grid{grid-template-columns:1fr 1fr}
+  .casos-grid{grid-template-columns:1fr 1fr}
   .como-grid{grid-template-columns:1fr 1fr}
-  .precios-grid{grid-template-columns:1fr}
-  .hero-stats{gap:2rem;flex-wrap:wrap}
-  footer{flex-direction:column;align-items:flex-start;padding:2rem 1.5rem}
+  .precios-grid{grid-template-columns:1fr;max-width:100%}
+  .roi-grid{grid-template-columns:1fr 1fr}
+  .hero-stats{gap:1.5rem}
 }
+
+/* RESPONSIVE MÓVIL */
 @media(max-width:640px){
-  .hero h1{font-size:clamp(4rem, 18vw, 6rem); letter-spacing:-1px;} /* Ajuste móvil */
+  nav{padding:.75rem 1rem}
+  .hero{padding:5rem 1rem 2.5rem}
+  .hero h1{font-size:clamp(1.75rem,7vw,2.5rem);letter-spacing:-.5px}
+  .hero-sub{font-size:.9rem}
+  .hero-actions{flex-direction:column;width:100%}
+  .hero-actions a,.hero-actions button{width:100%;text-align:center}
+  .hero-stats{gap:1rem}
+  .stat-val{font-size:1.6rem}
+  .valor,.services,.casos,.agente,.como,.precios,.roi{padding:3rem 1rem}
+  .cta-final{padding:4rem 1rem}
+  footer{flex-direction:column;align-items:flex-start;padding:1.5rem 1rem;gap:.75rem}
+  .services-grid{grid-template-columns:1fr}
+  .casos-grid{grid-template-columns:1fr}
   .como-grid{grid-template-columns:1fr}
-  #vlt-fab-panel{width:calc(100vw - 32px);right:16px;bottom:80px;height:70vh}
-  .cta-final{padding:5rem 1.5rem}
+  .roi-grid{grid-template-columns:1fr 1fr}
+  .agente-frame iframe{height:600px}
+  .section-title{font-size:clamp(1.5rem,6vw,2rem)}
+  #vlt-fab-panel{width:calc(100vw - 20px);right:10px;bottom:82px;height:72vh}
+  .ticker-inner{gap:2rem}
+  .precios-grid{max-width:100%}
+  .valor-grid{gap:2rem}
 }
 </style>
 </head>
 
 <a id="wa-float" href="https://wa.me/56935208529?text=Hola%20Voltaic%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener">
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.845L.057 23.522a.5.5 0 0 0 .625.605l5.803-1.522A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.955 9.955 0 0 1-5.23-1.41l-.375-.22-3.888 1.02 1.037-3.793-.243-.39A9.955 9.955 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-  <span class="wa-tip">¿Hablamos?</span>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.845L.057 23.522a.5.5 0 0 0 .625.605l5.803-1.522A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.955 9.955 0 0 1-5.23-1.41l-.375-.22-3.888 1.02 1.037-3.793-.243-.39A9.955 9.955 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+  <span class="wa-tip">+56 9 3520 8529</span>
 </a>
 
 <body>
@@ -253,58 +262,90 @@ footer{
 <nav>
   <a href="#" class="nav-logo">
     <div class="nav-logo-icon">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1" fill="#000" stroke="none"/></svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1" fill="#000" stroke="none"/></svg>
     </div>
     Voltaic Automatizaciones
   </a>
   <ul class="nav-links">
     <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#casos">Casos reales</a></li>
     <li><a href="#agente">Demo en vivo</a></li>
-    <li><a href="#como">Proceso</a></li>
     <li><a href="#precios">Precios</a></li>
   </ul>
   <a href="#contacto" class="nav-cta">Diagnóstico gratis</a>
+  <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#servicios" onclick="toggleMenu()">Servicios</a>
+  <a href="#casos" onclick="toggleMenu()">Casos reales</a>
+  <a href="#agente" onclick="toggleMenu()">Demo en vivo</a>
+  <a href="#precios" onclick="toggleMenu()">Precios</a>
+  <a href="#contacto" onclick="toggleMenu()" style="color:var(--accent)">Diagnóstico gratis →</a>
+</div>
+
+<!-- HERO -->
 <section class="hero" id="hero">
   <div class="hero-glow"></div>
-  <h1>
-    negocio<br>
-    <span class="accent">vendiendo<br>solo.</span><br>
-    <span class="dim">24/7.</span>
-  </h1>
-  <p class="hero-sub">Construimos agentes IA que atienden clientes, cobran facturas y cierran ventas en WhatsApp, Instagram, Facebook, tu web y más — sin que tú estés presente.</p>
-  <div class="hero-actions">
-    <a href="#agente" class="btn-primary">Prueba el agente ahora</a>
-    <a href="#precios" class="btn-ghost">Ver precios →</a>
+  <div class="hero-content">
+    <div class="hero-tag"><span class="hero-dot"></span>Automatización con IA · Chile 2026</div>
+    <h1>Tu negocio con un<br><span class="accent">equipo de ventas IA</span><br>trabajando <span class="dim">24/7.</span></h1>
+    <p class="hero-sub">Desde una ferretería hasta un holding — construimos agentes IA que atienden clientes, generan ventas y resuelven consultas en todos tus canales digitales, sin que estés presente.</p>
+    <div class="hero-actions">
+      <a href="#agente" class="btn-primary">Prueba el agente ahora — es gratis</a>
+      <a href="#precios" class="btn-ghost">Ver precios en CLP →</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-val"><span>74</span>%</div><div class="stat-lbl">// consultas_solas</div></div>
+      <div><div class="stat-val"><span>24</span>/7</div><div class="stat-lbl">// disponible</div></div>
+      <div><div class="stat-val"><span>+38</span>%</div><div class="stat-lbl">// más_ventas</div></div>
+      <div><div class="stat-val"><span>2</span> sem</div><div class="stat-lbl">// implementación</div></div>
+    </div>
   </div>
-  <div class="hero-stats">
-    <div>
-      <div class="stat-val"><span>43</span>%</div>
-      <div class="stat-lbl">// aumento_productividad</div>
-    </div>
-    <div>
-      <div class="stat-val"><span>20</span> hrs</div>
-      <div class="stat-lbl">// horas_liberadas/mes</div>
-    </div>
-    <div>
-      <div class="stat-val"><span>48</span> hrs</div>
-      <div class="stat-lbl">// tiempo_implementacion</div>
-    </div>
-    <div>
-      <div class="stat-val"><span>74</span>%</div>
-      <div class="stat-lbl">// consultas_resueltas_solas</div>
+  <div class="hero-visual">
+    <div class="hero-visual-card">
+      <div class="hvc-tag">// agentes_activos_ahora</div>
+      <div class="hvc-channels">
+        <div class="hvc-ch">
+          <div class="hvc-ch-left"><div class="hvc-ch-dot" style="background:#25D366"></div>WhatsApp</div>
+          <div class="hvc-ch-stat">247 msgs hoy</div>
+        </div>
+        <div class="hvc-ch">
+          <div class="hvc-ch-left"><div class="hvc-ch-dot" style="background:#E1306C"></div>Instagram</div>
+          <div class="hvc-ch-stat">89 DMs</div>
+        </div>
+        <div class="hvc-ch">
+          <div class="hvc-ch-left"><div class="hvc-ch-dot" style="background:#6366f1"></div>Web Chat</div>
+          <div class="hvc-ch-stat">34 sesiones</div>
+        </div>
+        <div class="hvc-ch">
+          <div class="hvc-ch-left"><div class="hvc-ch-dot" style="background:#1877F2"></div>Facebook</div>
+          <div class="hvc-ch-stat">56 msgs</div>
+        </div>
+        <div class="hvc-ch">
+          <div class="hvc-ch-left"><div class="hvc-ch-dot" style="background:#0A66C2"></div>LinkedIn</div>
+          <div class="hvc-ch-stat">12 prospectos</div>
+        </div>
+      </div>
+      <div class="hvc-footer">
+        <div class="hvc-footer-stat"><div class="hvc-footer-val">438</div><div class="hvc-footer-lbl">// total_hoy</div></div>
+        <div class="hvc-footer-stat"><div class="hvc-footer-val">74%</div><div class="hvc-footer-lbl">// sin_humano</div></div>
+        <div class="hvc-footer-stat"><div class="hvc-footer-val">$0</div><div class="hvc-footer-lbl">// costo_extra</div></div>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
     <span class="ticker-item">WhatsApp IA</span>
     <span class="ticker-item">Instagram DMs</span>
     <span class="ticker-item">Facebook Messenger</span>
     <span class="ticker-item">Chat Web</span>
-    <span class="ticker-item">Email Marketing</span>
+    <span class="ticker-item">Email Marketing IA</span>
     <span class="ticker-item">LinkedIn B2B</span>
     <span class="ticker-item">Cobranza Automática</span>
     <span class="ticker-item">Análisis de Facturas</span>
@@ -314,7 +355,7 @@ footer{
     <span class="ticker-item">Instagram DMs</span>
     <span class="ticker-item">Facebook Messenger</span>
     <span class="ticker-item">Chat Web</span>
-    <span class="ticker-item">Email Marketing</span>
+    <span class="ticker-item">Email Marketing IA</span>
     <span class="ticker-item">LinkedIn B2B</span>
     <span class="ticker-item">Cobranza Automática</span>
     <span class="ticker-item">Análisis de Facturas</span>
@@ -323,6 +364,39 @@ footer{
   </div>
 </div>
 
+<!-- PROPUESTA DE VALOR -->
+<div class="valor" id="valor">
+  <div class="section-tag">// por_qué_voltaic</div>
+  <div class="section-title">No es un chatbot.<br>Es tu equipo completo.</div>
+  <div class="valor-grid">
+    <div class="valor-copy">
+      <p>Imagina contratar <strong>6 vendedores especializados</strong> que trabajan sin descanso, no se enferman, no piden vacaciones y responden en segundos a cada cliente — en WhatsApp, Instagram, Facebook, tu web, email y LinkedIn al mismo tiempo.</p>
+      <p>Eso es exactamente lo que Voltaic Automatizaciones construye para tu negocio. Un <strong>equipo digital que genera ventas, atiende consultas y califica prospectos</strong> mientras tú te enfocas en crecer.</p>
+      <p>El retorno de inversión es rápido — la mayoría de nuestros clientes recuperan lo invertido en el primer mes con el aumento en ventas cerradas.</p>
+      <a href="https://wa.me/56935208529?text=Hola%21%20Quiero%20saber%20m%C3%A1s%20sobre%20Voltaic" class="btn-primary" target="_blank">Habla con nosotros →</a>
+    </div>
+    <div class="valor-items">
+      <div class="valor-item">
+        <div class="valor-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div><div class="valor-item-title">Responde en segundos, no en horas</div><div class="valor-item-desc">Cada cliente recibe atención inmediata 24/7. Sin tiempos de espera que hacen perder ventas.</div></div>
+      </div>
+      <div class="valor-item">
+        <div class="valor-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div><div class="valor-item-title">6 agentes en paralelo, un solo costo</div><div class="valor-item-desc">Atiende miles de conversaciones simultáneas. Lo que antes requería un equipo entero, ahora cuesta una fracción.</div></div>
+      </div>
+      <div class="valor-item">
+        <div class="valor-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div><div class="valor-item-title">ROI rápido y medible</div><div class="valor-item-desc">Reporte mensual con ventas generadas, horas ahorradas y clientes atendidos. Números reales.</div></div>
+      </div>
+      <div class="valor-item">
+        <div class="valor-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div><div class="valor-item-title">Se adapta a cualquier rubro</div><div class="valor-item-desc">Ferretería, clínica, inmobiliaria, holding — configuramos el agente con el lenguaje y productos de tu negocio.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICIOS -->
 <section class="services" id="servicios">
   <div class="section-tag">// servicios</div>
   <div class="section-title">6 automatizaciones.<br>Resultados reales.</div>
@@ -373,69 +447,164 @@ footer{
   </div>
 </section>
 
+<!-- CASOS DE NEGOCIO -->
+<section class="casos" id="casos">
+  <div class="section-tag">// casos_reales</div>
+  <div class="section-title">Funciona para<br>cualquier negocio.</div>
+  <p class="section-sub">Desde comercios locales hasta empresas con múltiples sucursales — el agente se adapta a tu rubro en 30 minutos.</p>
+  <div class="casos-grid">
+
+    <div class="caso-card">
+      <img class="caso-img" src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80" alt="Ferretería" loading="lazy">
+      <div class="caso-body">
+        <div class="caso-sector">// retail · ferretería</div>
+        <div class="caso-title">Ferretería Don Pedro — ventas por WhatsApp 24/7</div>
+        <div class="caso-desc">Un vendedor respondía WhatsApp hasta las 11 pm. Los fines de semana se perdían pedidos. El agente IA ahora atiende catálogo, precios y toma pedidos completos — incluso cuando está cerrado.</div>
+        <div class="caso-metrics">
+          <div class="caso-metric"><div class="caso-metric-val">+38%</div><div class="caso-metric-lbl">ventas mes</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">74%</div><div class="caso-metric-lbl">sin humano</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">24/7</div><div class="caso-metric-lbl">disponible</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="caso-card">
+      <img class="caso-img" src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=600&q=80" alt="Clínica" loading="lazy">
+      <div class="caso-body">
+        <div class="caso-sector">// salud · clínica</div>
+        <div class="caso-title">Clínica dental — agenda y consultas automatizadas</div>
+        <div class="caso-desc">La recepcionista respondía WhatsApp hasta las 10 pm agendando horas y respondiendo dudas. Ahora el agente maneja el 74% de las consultas y agenda citas directamente en el sistema.</div>
+        <div class="caso-metrics">
+          <div class="caso-metric"><div class="caso-metric-val">-60%</div><div class="caso-metric-lbl">carga admin</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">+25%</div><div class="caso-metric-lbl">citas agendadas</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">0</div><div class="caso-metric-lbl">horas extra</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="caso-card">
+      <img class="caso-img" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80" alt="Inmobiliaria" loading="lazy">
+      <div class="caso-body">
+        <div class="caso-sector">// inmobiliaria · b2c</div>
+        <div class="caso-title">Inmobiliaria — calificación de leads automática</div>
+        <div class="caso-desc">Recibían 200 consultas al mes. Solo podían llamar a 40. El agente califica cada lead, filtra los interesados reales y agenda visitas — los ejecutivos solo hablan con quienes van a comprar.</div>
+        <div class="caso-metrics">
+          <div class="caso-metric"><div class="caso-metric-val">5x</div><div class="caso-metric-lbl">leads calificados</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">+42%</div><div class="caso-metric-lbl">cierres</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="caso-card">
+      <img class="caso-img" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80" alt="Factoring" loading="lazy">
+      <div class="caso-body">
+        <div class="caso-sector">// finanzas · factoring</div>
+        <div class="caso-title">Empresa de factoring — evaluación IA en 4 segundos</div>
+        <div class="caso-desc">Un analista tardaba 2 días en evaluar y aprobar una factura. El agente IA analiza riesgo, calcula tasas y genera la propuesta en 4 segundos. El analista solo revisa los casos complejos.</div>
+        <div class="caso-metrics">
+          <div class="caso-metric"><div class="caso-metric-val">4 seg</div><div class="caso-metric-lbl">por factura</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">-80%</div><div class="caso-metric-lbl">costo op.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="caso-card">
+      <img class="caso-img" src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80" alt="Estudio jurídico" loading="lazy">
+      <div class="caso-body">
+        <div class="caso-sector">// legal · estudio jurídico</div>
+        <div class="caso-title">Estudio de abogados — revisión de contratos en minutos</div>
+        <div class="caso-desc">Revisaban 80 contratos semanales en 3 días de trabajo. La IA los analiza en 4 minutos, marca cláusulas de riesgo y genera el resumen. Los abogados se dedican a lo que importa.</div>
+        <div class="caso-metrics">
+          <div class="caso-metric"><div class="caso-metric-val">4 min</div><div class="caso-metric-lbl">por contrato</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">20 hrs</div><div class="caso-metric-lbl">ahorradas/sem</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="caso-card">
+      <img class="caso-img" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80" alt="Holding" loading="lazy">
+      <div class="caso-body">
+        <div class="caso-sector">// corporativo · holding</div>
+        <div class="caso-title">Holding multi-rubro — reportes automáticos para directorio</div>
+        <div class="caso-desc">El CFO pasaba 2 días armando el reporte de gestión mensual. Ahora llega solo a su correo cada lunes a las 8 am, consolidando datos de todas las empresas del grupo. Listo para el directorio.</div>
+        <div class="caso-metrics">
+          <div class="caso-metric"><div class="caso-metric-val">2 días</div><div class="caso-metric-lbl">ahorrados/mes</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">100%</div><div class="caso-metric-lbl">automático</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AGENTE EN VIVO -->
 <section class="agente" id="agente">
-  <div class="section-tag">// demo_en_vivo</div>
+  <div class="section-tag">// demo_en_vivo · ia_real</div>
   <div class="section-title">Habla con el agente.<br>Ahora mismo.</div>
   <div class="agente-inner">
     <div class="agente-copy">
-      <h3>Esto es lo que recibirían tus clientes</h3>
-      <p>Elige el canal, escribe como si fueras un cliente y ve cómo responde el agente con IA real. Al final te presenta una propuesta personalizada para tu negocio.</p>
+      <h3>Esto es exactamente lo que recibirían tus clientes</h3>
+      <p>Elige el canal, escribe como si fueras un cliente de tu rubro y observa cómo responde el agente con IA real — en tiempo real, sin guión.</p>
+      <p>Al final de la conversación el agente te presenta una propuesta personalizada con precios y siguiente paso. Así cierra ventas solo.</p>
       <div class="agente-features">
-        <div class="agente-feat"><div class="agente-feat-dot"></div>IA real — cada respuesta generada en vivo</div>
-        <div class="agente-feat"><div class="agente-feat-dot"></div>6 canales: WA, IG, FB, Web, Email, LinkedIn</div>
-        <div class="agente-feat"><div class="agente-feat-dot"></div>Propuesta personalizada al final del chat</div>
-        <div class="agente-feat"><div class="agente-feat-dot"></div>Adaptable a cualquier rubro en 30 minutos</div>
+        <div class="agente-feat"><div class="agente-feat-dot"></div>IA real — cada respuesta generada en vivo, no es un demo grabado</div>
+        <div class="agente-feat"><div class="agente-feat-dot"></div>6 canales disponibles: WhatsApp, Instagram, Facebook, Web, Email, LinkedIn</div>
+        <div class="agente-feat"><div class="agente-feat-dot"></div>Propuesta personalizada con precios al final del chat</div>
+        <div class="agente-feat"><div class="agente-feat-dot"></div>Configuramos el agente con tu negocio en 30 minutos</div>
+        <div class="agente-feat"><div class="agente-feat-dot"></div>Escala a humano automáticamente cuando el cliente lo necesita</div>
       </div>
-      <a href="#contacto" class="btn-primary">Quiero esto para mi negocio</a>
+      <a href="https://wa.me/56935208529?text=Hola%21%20Quiero%20este%20agente%20para%20mi%20negocio" class="btn-primary" target="_blank">Quiero esto para mi negocio</a>
     </div>
     <div class="agente-frame">
-      <iframe src="/agentes.html" allow="clipboard-write" loading="lazy" title="Agente IA Voltaic en vivo"></iframe>
+      <iframe src="/agentes.html" allow="clipboard-write" loading="lazy" title="Agente IA Voltaic en vivo" scrolling="no"></iframe>
     </div>
   </div>
 </section>
 
+<!-- COMO FUNCIONA -->
 <section class="como" id="como">
   <div class="section-tag">// proceso</div>
   <div class="section-title">De cero a funcionando<br>en 2 semanas.</div>
   <div class="como-grid">
     <div class="paso">
       <div class="paso-num">01</div>
-      <div class="paso-title">Diagnóstico gratis</div>
-      <div class="paso-desc">30 minutos. Identificamos los 3 procesos con mayor impacto en tu operación. Sin compromiso.</div>
+      <div class="paso-title">Diagnóstico gratis (30 min)</div>
+      <div class="paso-desc">Identificamos los 3 procesos con mayor impacto en tu operación. Sin compromiso, sin costo.</div>
     </div>
     <div class="paso">
       <div class="paso-num">02</div>
-      <div class="paso-title">Demo en 48 horas</div>
+      <div class="paso-title">Demo en vivo en 48 horas</div>
       <div class="paso-desc">Te mostramos el agente funcionando con los datos reales de tu empresa antes de firmar nada.</div>
     </div>
     <div class="paso">
       <div class="paso-num">03</div>
-      <div class="paso-title">Implementación</div>
-      <div class="paso-desc">1–2 semanas. Sin interrumpir tu operación. Sin requerir equipo técnico de tu parte.</div>
+      <div class="paso-title">Implementación 1–2 semanas</div>
+      <div class="paso-desc">Sin interrumpir tu operación. Sin requerir equipo técnico interno de tu parte.</div>
     </div>
     <div class="paso">
       <div class="paso-num">04</div>
       <div class="paso-title">Resultados en 30 días</div>
-      <div class="paso-desc">Reporte de horas ahorradas, errores reducidos y ROI generado. Números reales, medibles.</div>
+      <div class="paso-desc">Reporte de ventas generadas, horas ahorradas y ROI calculado. Números reales y medibles.</div>
     </div>
   </div>
 </section>
 
+<!-- PRECIOS -->
 <section class="precios" id="precios">
-  <div class="section-tag">// precios</div>
-  <div class="section-title">Inversión directa.<br>Sin letra chica.</div>
+  <div class="section-tag">// inversión</div>
+  <div class="section-title">Precios directos.<br>Sin letra chica.</div>
   <div class="precios-grid">
     <div class="precio-card">
       <div class="precio-name">Proyecto único</div>
       <div class="precio-val">$490.000</div>
       <div class="precio-period">CLP · pago único</div>
       <ul class="precio-features">
-        <li>Una automatización completa</li>
+        <li>Una automatización completa lista</li>
         <li>Instalación y capacitación incluida</li>
         <li>1 mes de soporte post-entrega</li>
         <li>Demo en vivo antes de firmar</li>
       </ul>
-      <button class="precio-btn" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Agendar diagnóstico</button>
+      <button class="precio-btn" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Agendar diagnóstico gratis</button>
     </div>
     <div class="precio-card featured">
       <div class="precio-badge">Más popular</div>
@@ -446,19 +615,19 @@ footer{
         <li>Automatizaciones ilimitadas</li>
         <li>Soporte y mejoras continuas</li>
         <li>Nuevas integraciones cada mes</li>
-        <li>Reportes mensuales de ahorro</li>
-        <li>Prioridad en nuevos proyectos</li>
+        <li>Reportes mensuales de ventas y ROI</li>
+        <li>Prioridad en nuevos desarrollos</li>
       </ul>
       <button class="precio-btn" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Comenzar ahora</button>
     </div>
     <div class="precio-card">
       <div class="precio-name">Revenue share</div>
       <div class="precio-val">2–5%</div>
-      <div class="precio-period">del ahorro generado en CLP</div>
+      <div class="precio-period">del ahorro o venta generada en CLP</div>
       <ul class="precio-features">
         <li>Sin inversión inicial</li>
         <li>Solo pagas sobre resultados reales</li>
-        <li>Ideal para empresas grandes</li>
+        <li>Ideal para empresas medianas y grandes</li>
         <li>Medición mensual auditada</li>
       </ul>
       <button class="precio-btn" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Conversemos</button>
@@ -466,27 +635,57 @@ footer{
   </div>
 </section>
 
+<!-- ROI RÁPIDO -->
+<div class="roi">
+  <div class="section-tag">// retorno_de_inversion</div>
+  <div class="section-title">Recuperas lo invertido<br>en el primer mes.</div>
+  <div class="roi-grid">
+    <div class="roi-card">
+      <div class="roi-num">43%</div>
+      <div class="roi-lbl">aumento promedio de productividad reportado por clientes</div>
+    </div>
+    <div class="roi-card">
+      <div class="roi-num">20 hrs</div>
+      <div class="roi-lbl">ahorradas al mes en tareas repetitivas de atención</div>
+    </div>
+    <div class="roi-card">
+      <div class="roi-num">+38%</div>
+      <div class="roi-lbl">aumento en ventas cerradas el primer mes de operación</div>
+    </div>
+    <div class="roi-card">
+      <div class="roi-num">&lt;$100</div>
+      <div class="roi-lbl">USD/mes costo operativo de un sistema IA completo</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA FINAL -->
 <section class="cta-final" id="contacto">
-  <h2>¿Cuántas horas pierde tu negocio<br>en cosas que la IA puede <em>hacer sola</em>?</h2>
-  <p>30 minutos. Sin costo. Te decimos exactamente qué automatizar primero.</p>
-  <a href="https://wa.me/56935208529?text=Hola%21%20Quiero%20agendar%20un%20diagn%C3%B3stico%20gratuito" class="btn-primary" target="_blank">Agendar por WhatsApp →</a>
-  <p class="cta-note">Sin compromiso · Diagnóstico 100% gratuito · Resultado en 30 minutos</p>
+  <h2>¿Cuántas ventas está<br>perdiendo tu negocio <em>ahora mismo</em>?</h2>
+  <p>30 minutos de diagnóstico gratuito. Te decimos exactamente qué automatizar primero y cuánto te generaría.</p>
+  <a href="https://wa.me/56935208529?text=Hola%21%20Quiero%20agendar%20un%20diagn%C3%B3stico%20gratuito%20de%2030%20minutos" class="cta-wa" target="_blank">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.845L.057 23.522a.5.5 0 0 0 .625.605l5.803-1.522A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.955 9.955 0 0 1-5.23-1.41l-.375-.22-3.888 1.02 1.037-3.793-.243-.39A9.955 9.955 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    Agendar diagnóstico gratis — +56 9 3520 8529
+  </a>
+  <p class="cta-note">Sin compromiso · 100% gratuito · Resultado concreto en 30 minutos</p>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-logo">
     <div class="footer-logo-icon">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1" fill="#000" stroke="none"/></svg>
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1" fill="#000" stroke="none"/></svg>
     </div>
     Voltaic Automatizaciones
   </div>
-  <span class="footer-copy">© 2026 Voltaic Automatizaciones SpA · Chile</span>
+  <span class="footer-copy">© 2026 Voltaic Automatizaciones SpA · Chile · +56 9 3520 8529</span>
   <div class="footer-links">
-    <a href="mailto:hola@voltaicspa.cl">hola@voltaicspa.cl</a>
+    <a href="/cdn-cgi/l/email-protection#1a7275767b5a6c75766e7b7379696a7b347976"><span class="__cf_email__" data-cfemail="4d2522212c0d3b2221392c242e3e3d2c632e21">[email&#160;protected]</span></a>
     <a href="https://wa.me/56935208529">WhatsApp</a>
   </div>
 </footer>
 
+<!-- FAB AGENTE -->
 <div id="vlt-fab">
   <span id="vlt-fab-tip">Habla con un agente IA</span>
   <button id="vlt-fab-btn" onclick="toggleFab()" aria-label="Abrir agente IA">
@@ -495,10 +694,10 @@ footer{
   </button>
 </div>
 <div id="vlt-fab-panel">
-  <iframe src="/agentes.html" allow="clipboard-write" title="Agente IA Voltaic"></iframe>
+  <iframe src="/agentes.html" allow="clipboard-write" title="Agente IA Voltaic" scrolling="no"></iframe>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 function toggleFab(){
   var p=document.getElementById('vlt-fab-panel');
   var o=document.getElementById('fab-open');
@@ -509,7 +708,19 @@ function toggleFab(){
   c.style.display=open?'none':'block';
 }
 
-// Animaciones de entrada al hacer scroll
+function toggleMenu(){
+  var m=document.getElementById('mobileMenu');
+  m.classList.toggle('open');
+}
+
+document.addEventListener('click',function(e){
+  var m=document.getElementById('mobileMenu');
+  var btn=document.querySelector('.nav-hamburger');
+  if(!m.contains(e.target)&&!btn.contains(e.target)){
+    m.classList.remove('open');
+  }
+});
+
 const obs=new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
@@ -517,15 +728,6 @@ const obs=new IntersectionObserver((entries)=>{
       e.target.style.transform='translateY(0)';
     }
   });
-},{threshold:0.1});
+},{threshold:0.08});
 
-document.querySelectorAll('.service-card,.paso,.precio-card').forEach(el=>{
-  el.style.opacity='0';
-  el.style.transform='translateY(20px)';
-  el.style.transition='opacity .5s ease, transform .5s ease';
-  obs.observe(el);
-});
-</script>
-
-</body>
-</html>
+document.querySelectorAll('.service-card,.pas
