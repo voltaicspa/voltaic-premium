@@ -1,96 +1,328 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asistente IA - Voltaic</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        #chat-container { width: 400px; height: 600px; background: white; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; }
-        #chat-header { background: #004a99; color: white; padding: 20px; text-align: center; font-weight: bold; font-size: 1.2em; }
-        #messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-        .message { padding: 10px 15px; border-radius: 18px; max-width: 80%; line-height: 1.4; font-size: 0.95em; }
-        .user { background: #004a99; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .bot { background: #e9e9eb; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
-        #input-area { padding: 15px; border-top: 1px solid #eee; display: flex; gap: 10px; }
-        input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 20px; outline: none; }
-        button { background: #004a99; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #003366; }
-        button:disabled { background: #ccc; cursor: not-allowed; }
-        .loading { font-size: 0.8em; color: #888; font-style: italic; margin-left: 20px; display: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Voltaic — Agente IA en vivo</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'DM Sans',sans-serif;background:#F2F0EB;display:flex;flex-direction:column;height:100vh;max-height:100vh}
+.hdr{padding:.75rem 1rem .5rem;text-align:center;flex-shrink:0}
+.tag{font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.3rem}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(1.1rem,3.5vw,1.6rem);color:#111;letter-spacing:-.3px;line-height:1.15;margin-bottom:.2rem}
+h1 em{font-style:italic;color:#1a7a40}
+.sub{font-size:12px;color:#888;max-width:400px;margin:0 auto;line-height:1.5}
+.canales{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;padding:.5rem 1rem;flex-shrink:0}
+.canal{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:100px;border:2px solid #e0e0e0;background:#fff;color:#888;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap}
+.canal:hover{border-color:#ccc;color:#444}
+.canal.on-wa{border-color:#25D366;background:#f0fdf4;color:#166534}
+.canal.on-ig{border-color:#E1306C;background:#fff0f6;color:#9d174d}
+.canal.on-web{border-color:#6366f1;background:#eef2ff;color:#3730a3}
+.canal.on-fb{border-color:#1877F2;background:#eff6ff;color:#1e40af}
+.canal.on-li{border-color:#0A66C2;background:#eff6ff;color:#1e40af}
+.canal.on-em{border-color:#d97706;background:#fffbeb;color:#92400e}
+.chatbox{flex:1;display:flex;flex-direction:column;margin:0 .75rem .75rem;background:#fff;border-radius:16px;border:2px solid #e8e8e8;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.07);min-height:0}
+.chat-head{display:flex;align-items:center;gap:10px;padding:.75rem 1rem;border-bottom:2px solid #f2f2f2;flex-shrink:0}
+.avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.agent-name{font-size:14px;font-weight:500;color:#111}
+.agent-status{display:flex;align-items:center;gap:4px;margin-top:2px}
+.status-dot{width:6px;height:6px;border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.msgs-wrap{flex:1;overflow-y:auto;min-height:0;display:flex;flex-direction:column}
+.msgs{background:#f7f7f5;padding:.75rem;display:flex;flex-direction:column;gap:8px;flex:1}
+.msgs::-webkit-scrollbar{width:3px}
+.msgs::-webkit-scrollbar-thumb{background:#ddd;border-radius:3px}
+.bbl{padding:.6rem .9rem;border-radius:14px;font-size:13px;line-height:1.5;max-width:88%;animation:up .2s ease;word-wrap:break-word}
+@keyframes up{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.bbl-in{background:#fff;border:1.5px solid #ebebeb;color:#222;align-self:flex-start;border-bottom-left-radius:3px}
+.bbl-out{color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+.typing{display:none;padding:.5rem .75rem;background:#f7f7f5;align-items:center;gap:4px;flex-shrink:0}
+.typing span{width:5px;height:5px;border-radius:50%;background:#ccc;animation:dot .8s infinite}
+.typing span:nth-child(2){animation-delay:.15s}
+.typing span:nth-child(3){animation-delay:.3s}
+@keyframes dot{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-4px)}}
+.sugs{display:flex;gap:5px;flex-wrap:wrap;padding:.5rem .75rem;border-top:1.5px solid #f0f0f0;background:#fafaf8;flex-shrink:0}
+.sg{background:#fff;border:1.5px solid #e5e5e5;border-radius:100px;padding:4px 11px;font-size:11px;font-weight:500;color:#555;cursor:pointer;transition:all .15s;white-space:nowrap}
+.sg:hover{border-color:#aaa;color:#111}
+.input-zona{border-top:2px solid #e8e8e8;background:#fff;flex-shrink:0}
+.input-hint{font-size:10px;color:#aaa;font-weight:500;letter-spacing:.04em;padding:.4rem 1rem .1rem;text-transform:uppercase}
+.input-row{display:flex;gap:8px;align-items:center;padding:.4rem .75rem .65rem}
+.input-row input{flex:1;background:#f4f4f2;border:2px solid #d8d8d8;border-radius:100px;padding:10px 15px;font-size:13px;color:#111;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s;min-width:0}
+.input-row input:focus{border-color:#555;background:#fff}
+.input-row input::placeholder{color:#bbb}
+.btn-send{width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .15s,opacity .15s}
+.btn-send:hover{transform:scale(1.08)}
+.btn-send:disabled{opacity:.3;cursor:not-allowed;transform:none}
+.propuesta{display:none;overflow-y:auto;max-height:55vh;background:#fff;border-top:2px solid #f0f0f0;flex-shrink:0}
+.prop-inner{padding:1.25rem}
+.prop-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:4px 12px;border-radius:100px;margin-bottom:.75rem}
+.prop-titulo{font-size:16px;font-weight:500;color:#111;margin-bottom:.25rem}
+.prop-desc{font-size:12px;color:#777;margin-bottom:1rem;line-height:1.5}
+.prop-lista{display:flex;flex-direction:column;gap:7px;margin-bottom:1.25rem}
+.prop-item{display:flex;gap:8px;font-size:12px;color:#444;line-height:1.4;align-items:flex-start}
+.prop-check{width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.precios{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.25rem}
+.precio{background:#f8f8f6;border:2px solid #ebebeb;border-radius:10px;padding:.75rem;text-align:center}
+.precio.dest{border-color:#16a34a;background:#f0fdf4}
+.precio-val{font-size:18px;font-weight:500;color:#111}
+.precio.dest .precio-val{color:#166534}
+.precio-lbl{font-size:10px;color:#999;margin-top:2px}
+.precio.dest .precio-lbl{color:#4ade80}
+.form-campos{display:flex;flex-direction:column;gap:8px;margin-bottom:.85rem}
+.form-campos input{background:#f8f8f6;border:2px solid #e0e0e0;border-radius:8px;padding:10px 12px;font-size:13px;color:#111;font-family:'DM Sans',sans-serif;outline:none;width:100%;transition:border-color .15s}
+.form-campos input:focus{border-color:#555;background:#fff}
+.form-campos input::placeholder{color:#c0c0c0}
+.btn-prop{width:100%;border:none;border-radius:100px;padding:12px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;color:#fff;transition:all .15s}
+.btn-prop:hover{opacity:.9;transform:translateY(-1px)}
+.prop-nota{font-size:11px;color:#bbb;text-align:center;margin-top:.6rem}
+.exito{display:none;text-align:center;padding:1.5rem 1rem}
+.exito-ico{width:50px;height:50px;border-radius:50%;background:#f0fdf4;border:2px solid #bbf7d0;display:flex;align-items:center;justify-content:center;margin:0 auto .85rem}
+.exito-titulo{font-size:15px;font-weight:500;color:#111;margin-bottom:.4rem}
+.exito-sub{font-size:12px;color:#777;line-height:1.5}
+.brand{font-size:10px;color:#ccc;text-align:center;padding:.4rem;border-top:1.5px solid #f2f2f2;flex-shrink:0}
+.brand a{color:#bbb;text-decoration:none}
+</style>
 </head>
 <body>
 
-<div id="chat-container">
-    <div id="chat-header">Voltaic IA Business Agent</div>
-    <div id="messages">
-        <div class="message bot">¡Hola! Soy el asistente de Voltaic. ¿Qué tipo de negocio tienes para contarte cómo podemos automatizarlo?</div>
+<div class="hdr">
+  <div class="tag">Voltaic Automatizaciones · Demo en vivo</div>
+  <h1>Tu equipo de ventas IA.<br><em>Pruébalo ahora.</em></h1>
+  <p class="sub">Elige un canal y escribe como cliente. Al final recibirás una propuesta real.</p>
+</div>
+
+<div class="canales" id="canales">
+  <button class="canal on-wa" onclick="setAgente('wa',this)">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.845L.057 23.522a.5.5 0 0 0 .625.605l5.803-1.522A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.955 9.955 0 0 1-5.23-1.41l-.375-.22-3.888 1.02 1.037-3.793-.243-.39A9.955 9.955 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp
+  </button>
+  <button class="canal" onclick="setAgente('ig',this)">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+    Instagram
+  </button>
+  <button class="canal" onclick="setAgente('web',this)">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    Web
+  </button>
+  <button class="canal" onclick="setAgente('fb',this)">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    Facebook
+  </button>
+  <button class="canal" onclick="setAgente('li',this)">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    LinkedIn
+  </button>
+  <button class="canal" onclick="setAgente('em',this)">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    Email
+  </button>
+</div>
+
+<div class="chatbox" id="chatbox">
+  <div class="chat-head">
+    <div class="avatar" id="av"></div>
+    <div>
+      <div class="agent-name" id="agName">Agente WhatsApp</div>
+      <div class="agent-status">
+        <span class="status-dot" id="sDot" style="background:#25D366"></span>
+        <span id="sText" style="font-size:11px;color:#16a34a">En línea ahora</span>
+      </div>
     </div>
-    <div id="loading" class="loading">Gemma está pensando...</div>
-    <div id="input-area">
-        <input type="text" id="userInput" placeholder="Escribe tu mensaje..." onkeypress="handleKeyPress(event)">
-        <button id="sendBtn" onclick="sendMessage()">Enviar</button>
+  </div>
+  <div class="msgs-wrap" id="msgsWrap">
+    <div class="msgs" id="msgs"></div>
+    <div class="typing" id="typing"><span></span><span></span><span></span></div>
+    <div class="sugs" id="sugs"></div>
+  </div>
+  <div class="input-zona">
+    <div class="input-hint">✏ Escribe aquí tu mensaje</div>
+    <div class="input-row">
+      <input type="text" id="inp" placeholder="Ej: ¿Cuánto cuesta? / Tengo una ferretería..." onkeydown="if(event.key==='Enter')enviar()">
+      <button class="btn-send" id="btnSend" onclick="enviar()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="#fff" stroke="none"/></svg>
+      </button>
     </div>
+  </div>
+  <div class="propuesta" id="propuesta">
+    <div class="prop-inner">
+      <div class="prop-badge" id="pBadge"></div>
+      <div class="prop-titulo" id="pTitulo"></div>
+      <div class="prop-desc">Basado en tu conversación, esto es lo que implementaríamos para ti:</div>
+      <div class="prop-lista" id="pLista"></div>
+      <div class="precios">
+        <div class="precio"><div class="precio-val" id="pP1"></div><div class="precio-lbl">CLP · proyecto único</div></div>
+        <div class="precio dest"><div class="precio-val" id="pP2"></div><div class="precio-lbl">CLP / mes suscripción</div></div>
+      </div>
+      <div class="form-campos" id="pForm">
+        <input type="text" id="fNombre" placeholder="Tu nombre completo">
+        <input type="text" id="fEmpresa" placeholder="Nombre de tu empresa o negocio">
+        <input type="text" id="fWa" placeholder="Tu WhatsApp (+56 9 ...)">
+      </div>
+      <button class="btn-prop" id="pBtn" onclick="enviarProp()">Quiero esta solución — agendar llamada gratis</button>
+      <p class="prop-nota">Sin compromiso · Diagnóstico gratuito de 30 minutos</p>
+      <div class="exito" id="exito">
+        <div class="exito-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="exito-titulo">¡Listo! Te contactamos pronto</div>
+        <div class="exito-sub" id="exitoSub"></div>
+      </div>
+    </div>
+  </div>
+  <div class="brand">Agente IA por <a href="https://voltaicspa.cl" target="_blank">Voltaic Automatizaciones</a></div>
 </div>
 
 <script>
-    // TU URL DE NGROK ACTUALIZADA
-    const N8N_WEBHOOK_URL = 'https://penitently-unremissible-freeman.ngrok-free.dev/webhook/voltaic-chat';
+// URL del backend n8n via ngrok
+const N8N_URL = 'https://penitently-unremissible-freeman.ngrok-free.dev/webhook/voltaic-chat';
 
-    async function sendMessage() {
-        const input = document.getElementById('userInput');
-        const messages = document.getElementById('messages');
-        const loading = document.getElementById('loading');
-        const btn = document.getElementById('sendBtn');
-        const text = input.value.trim();
+const A={
+  wa:{nombre:'Agente WhatsApp',color:'#25D366',avatarBg:'#dcfce7',cls:'on-wa',statusColor:'#16a34a',statusText:'En línea ahora',sugs:['¿Qué pueden automatizar?','¿Cuánto cuesta?','Tengo un negocio de retail'],pTitulo:'Agente de ventas para WhatsApp',pItems:['Atiende clientes 24/7 sin que estés presente','Cotiza, responde y toma pedidos solo','Escala a humano en casos complejos','Registra conversaciones en Google Sheets'],p1:'$490.000',p2:'$240.000',avatarHtml:'<svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.845L.057 23.522a.5.5 0 0 0 .625.605l5.803-1.522A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.955 9.955 0 0 1-5.23-1.41l-.375-.22-3.888 1.02 1.037-3.793-.243-.39A9.955 9.955 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>',system:'wa'},
+  ig:{nombre:'Agente Instagram',color:'#E1306C',avatarBg:'#fce7f3',cls:'on-ig',statusColor:'#be185d',statusText:'En línea ahora',sugs:['¿Responden DMs automáticamente?','¿Pueden vender por Instagram?','¿Cuánto vale?'],pTitulo:'Agente de ventas para Instagram',pItems:['Responde DMs en menos de 30 segundos','Convierte seguidores en clientes','Activo 24/7 sin costo adicional','Integración con catálogo de productos'],p1:'$490.000',p2:'$240.000',avatarHtml:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="#E1306C" stroke="none"/></svg>',system:'ig'},
+  web:{nombre:'Agente Web',color:'#6366f1',avatarBg:'#eef2ff',cls:'on-web',statusColor:'#4338ca',statusText:'En línea ahora',sugs:['¿Qué automatizan?','¿Cuánto tarda?','Somos empresa mediana'],pTitulo:'Agente para tu sitio web',pItems:['Chat IA que califica visitantes','Agenda reuniones automáticamente','Detecta intención de compra','Integración con CRM'],p1:'$590.000',p2:'$240.000',avatarHtml:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',system:'web'},
+  fb:{nombre:'Agente Facebook',color:'#1877F2',avatarBg:'#eff6ff',cls:'on-fb',statusColor:'#1d4ed8',statusText:'En línea ahora',sugs:['¿Atienden Messenger?','¿Manejan comentarios?','Ver precios'],pTitulo:'Agente para Facebook',pItems:['Responde Messenger y comentarios 24/7','Genera prospectos automáticamente','Sin costo extra por volumen','Reportes semanales'],p1:'$490.000',p2:'$240.000',avatarHtml:'<svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>',system:'fb'},
+  li:{nombre:'Agente LinkedIn',color:'#0A66C2',avatarBg:'#eff6ff',cls:'on-li',statusColor:'#1e40af',statusText:'En línea ahora',sugs:['¿Automatizan B2B?','¿Cuál es el ROI?','Tenemos 5 vendedores'],pTitulo:'Agente B2B en LinkedIn',pItems:['200 contactos/día automáticamente','Mensajes personalizados por industria','Seguimiento hasta agendar reunión','18% tasa de respuesta en Chile'],p1:'$980.000',p2:'$380.000',avatarHtml:'<svg width="20" height="20" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',system:'li'},
+  em:{nombre:'Agente Email',color:'#d97706',avatarBg:'#fffbeb',cls:'on-em',statusColor:'#92400e',statusText:'En línea ahora',sugs:['¿Qué tan efectivo es?','¿Cuántos emails?','Automatizar seguimientos'],pTitulo:'Email marketing con IA',pItems:['Secuencias automáticas de seguimiento','42% apertura vs 20% promedio','Personalización por segmento','Integración con CRM y formularios'],p1:'$690.000',p2:'$290.000',avatarHtml:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',system:'em'}
+};
 
-        if (!text) return;
+let cur='wa',nMsgs=0,propMostrada=false;
 
-        // Mostrar mensaje del usuario
-        appendMessage('user', text);
-        input.value = '';
-        
-        // Bloquear UI mientras la GPU procesa
-        loading.style.display = 'block';
-        btn.disabled = true;
+function setAgente(id,btn){
+  cur=id;nMsgs=0;propMostrada=false;
+  document.querySelectorAll('.canal').forEach(b=>b.className='canal');
+  btn.classList.add(A[id].cls);
+  const a=A[id];
+  document.getElementById('av').style.background=a.avatarBg;
+  document.getElementById('av').innerHTML=a.avatarHtml;
+  document.getElementById('agName').textContent=a.nombre;
+  document.getElementById('sDot').style.background=a.color;
+  document.getElementById('sText').style.color=a.statusColor;
+  document.getElementById('sText').textContent=a.statusText;
+  document.getElementById('btnSend').style.background=a.color;
+  document.getElementById('sugs').innerHTML=a.sugs.map(s=>`<span class="sg" onclick="usarSug(this)">${s}</span>`).join('');
+  document.getElementById('msgs').innerHTML='';
+  document.getElementById('propuesta').style.display='none';
+  document.getElementById('exito').style.display='none';
+  document.getElementById('pForm').style.display='flex';
+  document.getElementById('pBtn').style.display='block';
+  const pn=document.querySelector('.prop-nota');
+  if(pn)pn.style.display='block';
+  burbuja('in','¡Hola! Cuéntame, ¿qué tipo de negocio tienes? Así te explico cómo puedo ayudarte 😊');
+}
 
-        try {
-            const response = await fetch(N8N_WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ mensaje: text })
-            });
+function burbuja(rol,txt){
+  const c=document.getElementById('msgs');
+  const d=document.createElement('div');
+  d.className='bbl '+(rol==='in'?'bbl-in':'bbl-out');
+  if(rol==='out')d.style.background=A[cur].color;
+  d.textContent=txt;
+  c.appendChild(d);
+  c.scrollTop=c.scrollHeight;
+  document.getElementById('msgsWrap').scrollTop=99999;
+}
 
-            const data = await response.json();
-            
-            // n8n devuelve un array o un objeto dependiendo de la config.
-            // Extraemos el texto de la respuesta de la IA
-            const botResponse = data.text || data[0].text || "Lo siento, tuve un problema al procesar la respuesta.";
-            appendMessage('bot', botResponse);
+function usarSug(el){
+  document.getElementById('inp').value=el.textContent;
+  enviar();
+}
 
-        } catch (error) {
-            console.error('Error:', error);
-            appendMessage('bot', 'Error de conexión con el servidor local.');
-        } finally {
-            loading.style.display = 'none';
-            btn.disabled = false;
-            messages.scrollTop = messages.scrollHeight;
-        }
-    }
+function mostrarProp(){
+  if(propMostrada)return;
+  propMostrada=true;
+  const a=A[cur];
+  const badge=document.getElementById('pBadge');
+  badge.textContent='✦ Propuesta personalizada para tu negocio';
+  badge.style.cssText=`background:${a.color}18;color:${a.color};display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:4px 12px;border-radius:100px;margin-bottom:.75rem`;
+  document.getElementById('pTitulo').textContent=a.pTitulo;
+  document.getElementById('pLista').innerHTML=a.pItems.map(i=>`<div class="prop-item"><div class="prop-check" style="background:${a.color}18"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="${a.color}" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>${i}</div>`).join('');
+  document.getElementById('pP1').textContent=a.p1;
+  document.getElementById('pP2').textContent=a.p2;
+  document.getElementById('pBtn').style.background=a.color;
+  const p=document.getElementById('propuesta');
+  p.style.display='block';
+  setTimeout(()=>p.scrollIntoView({behavior:'smooth',block:'start'}),150);
+}
 
-    function appendMessage(role, text) {
-        const div = document.createElement('div');
-        div.className = `message ${role}`;
-        div.innerText = text;
-        document.getElementById('messages').appendChild(div);
-        document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-    }
+async function enviar(){
+  const inp=document.getElementById('inp');
+  const txt=inp.value.trim();
+  if(!txt||document.getElementById('btnSend').disabled)return;
+  document.getElementById('btnSend').disabled=true;
+  inp.value='';
+  burbuja('out',txt);
+  nMsgs++;
+  const typ=document.getElementById('typing');
+  typ.style.display='flex';
+  document.getElementById('msgsWrap').scrollTop=99999;
 
-    function handleKeyPress(e) {
-        if (e.key === 'Enter') sendMessage();
-    }
+  try{
+    const r=await fetch(N8N_URL,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'ngrok-skip-browser-warning':'true'
+      },
+      body:JSON.stringify({
+        mensaje:txt,
+        canal:cur,
+        turno:nMsgs
+      })
+    });
+
+    if(!r.ok)throw new Error('Error '+r.status);
+    const d=await r.json();
+    
+    // n8n Basic LLM Chain devuelve la respuesta en diferentes formatos
+    let reply = d.output || d.text || d.response || d.message || 
+                (d[0] && (d[0].output || d[0].text)) || 
+                JSON.stringify(d);
+    
+    reply = String(reply).trim();
+    
+    const disparar = reply.includes('PROPUESTA') || nMsgs >= 3;
+    reply = reply.replace('PROPUESTA','').trim();
+    if(!reply) reply = '¡He preparado una propuesta personalizada para tu negocio! 👇';
+    
+    typ.style.display='none';
+    burbuja('in', reply);
+    if(disparar) setTimeout(mostrarProp, 800);
+
+  }catch(e){
+    typ.style.display='none';
+    burbuja('in','Tuve un problema de conexión. ¿Lo intentamos de nuevo? 🙏');
+    console.error('Error n8n:',e);
+  }
+  
+  document.getElementById('btnSend').disabled=false;
+  inp.focus();
+}
+
+function enviarProp(){
+  const n=document.getElementById('fNombre').value.trim();
+  const e=document.getElementById('fEmpresa').value.trim();
+  const w=document.getElementById('fWa').value.trim();
+  let ok=true;
+  [['fNombre',n],['fEmpresa',e],['fWa',w]].forEach(([id,v])=>{
+    document.getElementById(id).style.borderColor=v?'#e0e0e0':'#f87171';
+    if(!v)ok=false;
+  });
+  if(!ok)return;
+  document.getElementById('pForm').style.display='none';
+  document.getElementById('pBtn').style.display='none';
+  const pn=document.querySelector('.prop-nota');
+  if(pn)pn.style.display='none';
+  document.getElementById('exitoSub').textContent=`Hola ${n}, te escribiremos al ${w} en menos de 2 horas. ¡Gracias!`;
+  document.getElementById('exito').style.display='block';
+  document.getElementById('exito').scrollIntoView({behavior:'smooth',block:'nearest'});
+  const msg=encodeURIComponent(`Hola Voltaic! Me interesa el agente.\nNombre: ${n}\nEmpresa: ${e}\nWhatsApp: ${w}`);
+  setTimeout(()=>window.open(`https://wa.me/56935208529?text=${msg}`,'_blank'),1500);
+}
+
+setAgente('wa',document.querySelector('.canal'));
+
+document.getElementById('inp').addEventListener('focus',()=>{
+  document.querySelector('meta[name=viewport]').setAttribute('content','width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+});
 </script>
-
 </body>
 </html>
