@@ -2,331 +2,732 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Voltaic — Agente IA en vivo</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://www.google.com/recaptcha/api.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voltaic Automatizaciones — Tu equipo de ventas IA 24/7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow:hidden}
-body{font-family:'DM Sans',sans-serif;background:#F2F0EB;display:flex;flex-direction:column;height:100vh;max-height:100vh}
-.hdr{padding:.75rem 1rem .5rem;text-align:center;flex-shrink:0}
-.tag{font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.3rem}
-h1{font-family:'DM Serif Display',serif;font-size:clamp(1.1rem,3.5vw,1.6rem);color:#111;letter-spacing:-.3px;line-height:1.15;margin-bottom:.2rem}
-h1 em{font-style:italic;color:#1a7a40}
-.sub{font-size:12px;color:#888;max-width:400px;margin:0 auto;line-height:1.5}
-.canales{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;padding:.5rem 1rem;flex-shrink:0}
-.canal{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:100px;border:2px solid #e0e0e0;background:#fff;color:#888;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap}
-.canal:hover{border-color:#ccc;color:#444}
-.canal.on-wa{border-color:#25D366;background:#f0fdf4;color:#166534}
-.canal.on-ig{border-color:#E1306C;background:#fff0f6;color:#9d174d}
-.canal.on-web{border-color:#6366f1;background:#eef2ff;color:#3730a3}
-.canal.on-fb{border-color:#1877F2;background:#eff6ff;color:#1e40af}
-.canal.on-li{border-color:#0A66C2;background:#eff6ff;color:#1e40af}
-.canal.on-em{border-color:#d97706;background:#fffbeb;color:#92400e}
-.chatbox{flex:1;display:flex;flex-direction:column;margin:0 .75rem .75rem;background:#fff;border-radius:16px;border:2px solid #e8e8e8;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.07);min-height:0}
-.chat-head{display:flex;align-items:center;gap:10px;padding:.75rem 1rem;border-bottom:2px solid #f2f2f2;flex-shrink:0}
-.avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.agent-name{font-size:14px;font-weight:500;color:#111}
-.agent-status{display:flex;align-items:center;gap:4px;margin-top:2px}
-.status-dot{width:6px;height:6px;border-radius:50%;animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.msgs-wrap{flex:1;overflow-y:auto;min-height:0;display:flex;flex-direction:column}
-.msgs{background:#f7f7f5;padding:.75rem;display:flex;flex-direction:column;gap:8px;flex:1}
-.msgs::-webkit-scrollbar{width:3px}
-.msgs::-webkit-scrollbar-thumb{background:#ddd;border-radius:3px}
-.bbl{padding:.6rem .9rem;border-radius:14px;font-size:13px;line-height:1.5;max-width:88%;animation:up .2s ease;word-wrap:break-word}
-@keyframes up{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-.bbl-in{background:#fff;border:1.5px solid #ebebeb;color:#222;align-self:flex-start;border-bottom-left-radius:3px}
-.bbl-out{color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
-.typing{display:none;padding:.5rem .75rem;background:#f7f7f5;align-items:center;gap:4px;flex-shrink:0}
-.typing span{width:5px;height:5px;border-radius:50%;background:#ccc;animation:dot .8s infinite}
-.typing span:nth-child(2){animation-delay:.15s}
-.typing span:nth-child(3){animation-delay:.3s}
-@keyframes dot{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-4px)}}
-.sugs{display:flex;gap:5px;flex-wrap:wrap;padding:.5rem .75rem;border-top:1.5px solid #f0f0f0;background:#fafaf8;flex-shrink:0}
-.sg{background:#fff;border:1.5px solid #e5e5e5;border-radius:100px;padding:4px 11px;font-size:11px;font-weight:500;color:#555;cursor:pointer;transition:all .15s;white-space:nowrap}
-.sg:hover{border-color:#aaa;color:#111}
-.input-zona{border-top:2px solid #e8e8e8;background:#fff;flex-shrink:0}
-.input-hint{font-size:10px;color:#aaa;font-weight:500;letter-spacing:.04em;padding:.4rem 1rem .1rem;text-transform:uppercase}
-.input-row{display:flex;gap:8px;align-items:center;padding:.4rem .75rem .65rem}
-.input-row input{flex:1;background:#f4f4f2;border:2px solid #d8d8d8;border-radius:100px;padding:10px 15px;font-size:13px;color:#111;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s;min-width:0}
-.input-row input:focus{border-color:#555;background:#fff}
-.input-row input::placeholder{color:#bbb}
-.btn-send{width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .15s,opacity .15s}
-.btn-send:hover{transform:scale(1.08)}
-.btn-send:disabled{opacity:.3;cursor:not-allowed;transform:none}
-.propuesta{display:none;overflow-y:auto;max-height:55vh;background:#fff;border-top:2px solid #f0f0f0;flex-shrink:0}
-.prop-inner{padding:1.25rem}
-.prop-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:4px 12px;border-radius:100px;margin-bottom:.75rem}
-.prop-titulo{font-size:16px;font-weight:500;color:#111;margin-bottom:.25rem}
-.prop-desc{font-size:12px;color:#777;margin-bottom:1rem;line-height:1.5}
-.prop-lista{display:flex;flex-direction:column;gap:7px;margin-bottom:1.25rem}
-.prop-item{display:flex;gap:8px;font-size:12px;color:#444;line-height:1.4;align-items:flex-start}
-.prop-check{width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.precios{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.25rem}
-.precio{background:#f8f8f6;border:2px solid #ebebeb;border-radius:10px;padding:.75rem;text-align:center}
-.precio.dest{border-color:#16a34a;background:#f0fdf4}
-.precio-val{font-size:18px;font-weight:500;color:#111}
-.precio.dest .precio-val{color:#166534}
-.precio-lbl{font-size:10px;color:#999;margin-top:2px}
-.precio.dest .precio-lbl{color:#4ade80}
-.form-campos{display:flex;flex-direction:column;gap:8px;margin-bottom:.85rem}
-.form-campos input{background:#f8f8f6;border:2px solid #e0e0e0;border-radius:8px;padding:10px 12px;font-size:13px;color:#111;font-family:'DM Sans',sans-serif;outline:none;width:100%;transition:border-color .15s}
-.form-campos input:focus{border-color:#555;background:#fff}
-.form-campos input::placeholder{color:#c0c0c0}
-.btn-prop{width:100%;border:none;border-radius:100px;padding:12px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;color:#fff;transition:all .15s}
-.btn-prop:hover{opacity:.9;transform:translateY(-1px)}
-.prop-nota{font-size:11px;color:#bbb;text-align:center;margin-top:.6rem}
-.exito{display:none;text-align:center;padding:1.5rem 1rem}
-.exito-ico{width:50px;height:50px;border-radius:50%;background:#f0fdf4;border:2px solid #bbf7d0;display:flex;align-items:center;justify-content:center;margin:0 auto .85rem}
-.exito-titulo{font-size:15px;font-weight:500;color:#111;margin-bottom:.4rem}
-.exito-sub{font-size:12px;color:#777;line-height:1.5}
-.brand{font-size:10px;color:#ccc;text-align:center;padding:.4rem;border-top:1.5px solid #f2f2f2;flex-shrink:0}
-.brand a{color:#bbb;text-decoration:none}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080C10;--bg2:#0D1117;--bg3:#111820;
+  --accent:#00FF87;--accent2:#00C868;
+  --accent-dim:rgba(0,255,135,0.1);--accent-glow:rgba(0,255,135,0.2);
+  --text:#F0F6FC;--muted:#7D8590;--border:rgba(255,255,255,0.08);
+  --font-display:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;--font-mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:300;line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,255,135,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,135,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;background:rgba(8,12,16,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:8px}
+.nav-logo-icon{width:26px;height:26px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.85rem;font-family:var(--font-mono);transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{background:var(--accent);color:#000;border:none;border-radius:8px;padding:9px 18px;font-size:0.85rem;font-weight:700;cursor:pointer;font-family:var(--font-body);transition:all .2s;text-decoration:none;white-space:nowrap}
+.nav-cta:hover{background:#00E87A;transform:translateY(-1px)}
+.nav-hamburger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
+.nav-hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px;display:block;transition:all .3s}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(8,12,16,0.98);border-bottom:1px solid var(--border);padding:1.5rem;z-index:99;flex-direction:column;gap:1rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--muted);text-decoration:none;font-size:1rem;font-family:var(--font-mono);padding:.5rem 0;border-bottom:1px solid var(--border)}
+.mobile-menu a:last-child{border:none}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;padding:8rem 3rem 4rem;position:relative;overflow:hidden}
+.hero-content{display:flex;flex-direction:column}
+.hero-visual{display:flex;align-items:center;justify-content:center;position:relative}
+.hero-visual-card{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:1.5rem;width:100%;max-width:420px;position:relative}
+.hero-visual-card::before{content:'';position:absolute;inset:-1px;border-radius:20px;background:linear-gradient(135deg,rgba(0,255,135,0.15),transparent 60%);pointer-events:none}
+.hvc-tag{font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:6px}
+.hvc-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+.hvc-channels{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.25rem}
+.hvc-ch{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;border-radius:10px;border:1px solid var(--border);background:var(--bg)}
+.hvc-ch-left{display:flex;align-items:center;gap:.6rem;font-size:.85rem}
+.hvc-ch-dot{width:7px;height:7px;border-radius:50%}
+.hvc-ch-stat{font-family:var(--font-mono);font-size:.75rem;color:var(--accent)}
+.hvc-footer{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border)}
+.hvc-footer-stat{text-align:center}
+.hvc-footer-val{font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--accent)}
+.hvc-footer-lbl{font-size:.7rem;color:var(--muted);font-family:var(--font-mono)}
+.hero-glow{position:absolute;top:-150px;right:-150px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,135,0.07) 0%,transparent 70%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-dim);border:1px solid rgba(0,255,135,0.2);border-radius:100px;padding:5px 14px;font-family:var(--font-mono);font-size:0.72rem;color:var(--accent);margin-bottom:1.75rem;width:fit-content}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,4rem);font-weight:800;line-height:1.1;letter-spacing:-1.5px;max-width:700px;margin-bottom:1.25rem}
+.hero h1 .accent{color:var(--accent)}
+.hero h1 .dim{color:var(--muted)}
+.hero-sub{font-size:1.05rem;color:var(--muted);max-width:520px;margin-bottom:2.5rem;line-height:1.75}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:3.5rem}
+.btn-primary{background:var(--accent);color:#000;border:none;border-radius:10px;padding:13px 26px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:var(--font-body);transition:all .2s;text-decoration:none;display:inline-block}
+.btn-primary:hover{background:#00E87A;transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,255,135,0.25)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:13px 26px;font-size:.95rem;cursor:pointer;font-family:var(--font-body);transition:all .2s;text-decoration:none;display:inline-block}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.hero-stats{display:flex;gap:2.5rem;padding-top:2.5rem;border-top:1px solid var(--border);flex-wrap:wrap}
+.stat-val{font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--text);line-height:1}
+.stat-val span{color:var(--accent)}
+.stat-lbl{font-size:0.75rem;color:var(--muted);margin-top:4px;font-family:var(--font-mono)}
+
+/* TICKER */
+.ticker{padding:.85rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2);overflow:hidden;white-space:nowrap}
+.ticker-inner{display:inline-flex;gap:3rem;animation:ticker 25s linear infinite}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);display:flex;align-items:center;gap:8px}
+.ticker-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--accent)}
+
+/* PROPUESTA DE VALOR */
+.valor{padding:5rem 3rem;background:var(--bg);position:relative;z-index:1}
+.valor-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3rem}
+.valor-copy p{font-size:1.05rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem}
+.valor-copy strong{color:var(--text)}
+.valor-items{display:flex;flex-direction:column;gap:1rem}
+.valor-item{display:flex;gap:1rem;padding:1.25rem;border:1px solid var(--border);border-radius:12px;transition:border-color .2s}
+.valor-item:hover{border-color:rgba(0,255,135,0.3)}
+.valor-item-icon{width:40px;height:40px;border-radius:10px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.valor-item-title{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:.25rem}
+.valor-item-desc{font-size:0.85rem;color:var(--muted);line-height:1.5}
+
+/* SERVICIOS */
+.services{background:var(--bg2);padding:5rem 3rem;position:relative;z-index:1}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:3rem}
+.service-card{background:var(--bg2);padding:2rem;transition:background .2s;position:relative;overflow:hidden}
+.service-card:hover{background:var(--bg3)}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.service-card:hover::before{transform:scaleX(1)}
+.service-num{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);margin-bottom:1rem}
+.service-icon{width:40px;height:40px;border-radius:10px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;margin-bottom:.85rem}
+.service-name{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:.4rem}
+.service-desc{font-size:0.85rem;color:var(--muted);line-height:1.6;margin-bottom:.85rem}
+.service-price{font-family:var(--font-mono);font-size:0.75rem;color:var(--accent);background:var(--accent-dim);display:inline-block;padding:3px 10px;border-radius:100px}
+
+/* CASOS DE NEGOCIO */
+.casos{padding:5rem 3rem;background:var(--bg);position:relative;z-index:1}
+.casos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.caso-card{border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .3s;cursor:pointer}
+.caso-card:hover{border-color:rgba(0,255,135,0.3);transform:translateY(-4px)}
+.caso-img{width:100%;height:180px;object-fit:cover;display:block;background:var(--bg3)}
+.caso-img-placeholder{width:100%;height:180px;display:flex;align-items:center;justify-content:center;font-size:3rem;background:var(--bg3)}
+.caso-body{padding:1.5rem}
+.caso-sector{font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
+.caso-title{font-family:var(--font-display);font-size:1.05rem;font-weight:700;margin-bottom:.5rem;line-height:1.3}
+.caso-desc{font-size:0.85rem;color:var(--muted);line-height:1.6;margin-bottom:1rem}
+.caso-metrics{display:flex;gap:.75rem;flex-wrap:wrap}
+.caso-metric{background:var(--accent-dim);border-radius:8px;padding:.4rem .75rem}
+.caso-metric-val{font-size:1rem;font-weight:700;color:var(--accent);font-family:var(--font-display)}
+.caso-metric-lbl{font-size:0.7rem;color:var(--muted);font-family:var(--font-mono)}
+
+/* AGENTE EN VIVO */
+.agente{background:var(--bg2);padding:5rem 3rem;position:relative;z-index:1}
+.agente-inner{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start;margin-top:3rem}
+.agente-copy h3{font-family:var(--font-display);font-size:1.4rem;font-weight:700;margin-bottom:.85rem;line-height:1.3}
+.agente-copy p{color:var(--muted);line-height:1.75;margin-bottom:1.25rem;font-size:.95rem}
+.agente-features{display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.75rem}
+.agente-feat{display:flex;align-items:flex-start;gap:.75rem;font-size:0.875rem;line-height:1.5}
+.agente-feat-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px}
+.agente-frame{border-radius:20px;overflow:hidden;border:1px solid var(--border);box-shadow:0 0 60px rgba(0,255,135,0.06)}
+.agente-frame iframe{width:100%;height:820px;border:none;display:block}
+
+/* COMO FUNCIONA */
+.como{background:var(--bg);padding:5rem 3rem;position:relative;z-index:1}
+.como-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+.paso{padding:1.5rem;border:1px solid var(--border);border-radius:14px;transition:border-color .2s}
+.paso:hover{border-color:rgba(0,255,135,0.3)}
+.paso-num{font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:rgba(0,255,135,0.12);line-height:1;margin-bottom:.65rem}
+.paso-title{font-family:var(--font-display);font-size:.95rem;font-weight:700;margin-bottom:.4rem}
+.paso-desc{font-size:0.82rem;color:var(--muted);line-height:1.6}
+
+/* PRECIOS */
+.precios{background:var(--bg2);padding:5rem 3rem;position:relative;z-index:1}
+.precios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;max-width:960px}
+.precio-card{border:1px solid var(--border);border-radius:16px;padding:2rem;transition:all .2s;position:relative}
+.precio-card:hover{border-color:rgba(0,255,135,0.25);transform:translateY(-3px)}
+.precio-card.featured{border-color:var(--accent);background:rgba(0,255,135,0.03)}
+.precio-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;font-size:0.68rem;font-weight:700;padding:3px 12px;border-radius:100px;font-family:var(--font-mono);white-space:nowrap}
+.precio-name{font-size:0.78rem;color:var(--muted);font-family:var(--font-mono);margin-bottom:.4rem}
+.precio-val{font-family:var(--font-display);font-size:2.2rem;font-weight:800;color:var(--text);margin-bottom:.2rem;line-height:1}
+.precio-period{font-size:0.75rem;color:var(--muted);margin-bottom:1.25rem;font-family:var(--font-mono)}
+.precio-features{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.5rem}
+.precio-features li{font-size:0.85rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start;line-height:1.5}
+.precio-features li::before{content:'→';color:var(--accent);flex-shrink:0;font-size:0.78rem;margin-top:2px}
+.precio-btn{width:100%;background:transparent;border:1px solid var(--border);border-radius:8px;padding:10px;font-size:0.875rem;color:var(--text);cursor:pointer;font-family:var(--font-body);transition:all .2s}
+.precio-btn:hover{border-color:var(--accent);color:var(--accent)}
+.precio-card.featured .precio-btn{background:var(--accent);color:#000;border-color:var(--accent);font-weight:700}
+.precio-card.featured .precio-btn:hover{background:#00E87A}
+
+/* ROI RAPIDO */
+.roi{padding:5rem 3rem;background:var(--bg);position:relative;z-index:1}
+.roi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+.roi-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center}
+.roi-num{font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:var(--accent);line-height:1;margin-bottom:.35rem}
+.roi-lbl{font-size:0.82rem;color:var(--muted);font-family:var(--font-mono);line-height:1.4}
+
+/* CTA FINAL */
+.cta-final{background:var(--bg2);text-align:center;padding:7rem 3rem;position:relative;overflow:hidden;z-index:1}
+.cta-final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(0,255,135,0.05) 0%,transparent 70%)}
+.cta-final h2{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,3rem);font-weight:800;line-height:1.15;letter-spacing:-1px;margin-bottom:1rem;position:relative}
+.cta-final h2 em{font-style:italic;color:var(--accent)}
+.cta-final p{color:var(--muted);margin-bottom:2.5rem;font-size:1rem;position:relative;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-note{font-size:0.78rem;color:var(--muted);margin-top:1rem;font-family:var(--font-mono)}
+.cta-wa{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;border:none;border-radius:10px;padding:14px 28px;font-size:1rem;font-weight:700;cursor:pointer;font-family:var(--font-body);transition:all .2s;text-decoration:none}
+.cta-wa:hover{background:#20BA5A;transform:translateY(-2px)}
+
+/* FOOTER */
+footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bg);flex-wrap:wrap;gap:1rem;position:relative;z-index:1}
+.footer-logo{font-family:var(--font-display);font-size:.95rem;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px}
+.footer-logo-icon{width:22px;height:22px;background:var(--accent);border-radius:5px;display:flex;align-items:center;justify-content:center}
+.footer-copy{font-size:0.75rem;color:var(--muted);font-family:var(--font-mono)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:0.75rem;color:var(--muted);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--accent)}
+
+/* WHATSAPP FLOTANTE */
+#wa-float{position:fixed;bottom:24px;left:24px;z-index:9999;width:54px;height:54px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.4);animation:wa-pulse 2.5s ease-in-out infinite;transition:transform .2s}
+#wa-float:hover{transform:scale(1.1);animation:none}
+#wa-float:hover .wa-tip{opacity:1;transform:translateX(0)}
+.wa-tip{position:absolute;left:66px;background:#111;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:8px;white-space:nowrap;opacity:0;transform:translateX(-8px);transition:all .2s;pointer-events:none;font-family:var(--font-body)}
+@keyframes wa-pulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.4)}50%{box-shadow:0 4px 32px rgba(37,211,102,0.7)}}
+
+/* FAB AGENTE */
+#vlt-fab{position:fixed;bottom:24px;right:24px;z-index:9998}
+#vlt-fab-btn{width:54px;height:54px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,255,135,0.4);transition:transform .2s;padding:0}
+#vlt-fab-btn:hover{transform:scale(1.08)}
+#vlt-fab-tip{position:absolute;right:66px;top:50%;transform:translateY(-50%);background:var(--bg3);color:var(--text);font-size:12px;font-weight:500;padding:5px 12px;border-radius:8px;white-space:nowrap;border:1px solid var(--border);opacity:0;transition:opacity .2s;pointer-events:none;font-family:var(--font-body)}
+#vlt-fab:hover #vlt-fab-tip{opacity:1}
+#vlt-fab-panel{display:none;position:fixed;bottom:88px;right:24px;width:390px;height:640px;border-radius:20px;overflow:hidden;z-index:9997;border:1px solid rgba(0,255,135,0.2);box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px rgba(0,255,135,0.06)}
+#vlt-fab-panel iframe{width:100%;height:100%;border:none}
+
+/* SECTION HELPERS */
+section,.valor,.services,.casos,.agente,.como,.precios,.roi,.cta-final{position:relative;z-index:1}
+.section-tag{font-family:var(--font-mono);font-size:0.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.85rem}
+.section-title{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:.85rem}
+.section-sub{font-size:.95rem;color:var(--muted);max-width:480px;line-height:1.7}
+
+/* RESPONSIVE TABLET */
+@media(max-width:1024px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .nav-hamburger{display:flex}
+  .hero{grid-template-columns:1fr;padding:6rem 1.5rem 3rem;gap:2rem}
+  .hero-visual{display:none}
+  .valor,.services,.casos,.agente,.como,.precios,.roi,.cta-final{padding:4rem 1.5rem}
+  footer{padding:1.5rem}
+  .valor-grid{grid-template-columns:1fr;gap:3rem}
+  .agente-inner{grid-template-columns:1fr}
+  .agente-frame iframe{height:700px}
+  .services-grid{grid-template-columns:1fr 1fr}
+  .casos-grid{grid-template-columns:1fr 1fr}
+  .como-grid{grid-template-columns:1fr 1fr}
+  .precios-grid{grid-template-columns:1fr;max-width:100%}
+  .roi-grid{grid-template-columns:1fr 1fr}
+  .hero-stats{gap:1.5rem}
+}
+
+/* RESPONSIVE MÓVIL */
+@media(max-width:640px){
+  nav{padding:.75rem 1rem}
+  .hero{padding:5rem 1rem 2.5rem}
+  .hero h1{font-size:clamp(1.75rem,7vw,2.5rem);letter-spacing:-.5px}
+  .hero-sub{font-size:.9rem}
+  .hero-actions{flex-direction:column;width:100%}
+  .hero-actions a,.hero-actions button{width:100%;text-align:center}
+  .hero-stats{gap:1rem}
+  .stat-val{font-size:1.6rem}
+  .valor,.services,.casos,.agente,.como,.precios,.roi{padding:3rem 1rem}
+  .cta-final{padding:4rem 1rem}
+  footer{flex-direction:column;align-items:flex-start;padding:1.5rem 1rem;gap:.75rem}
+  .services-grid{grid-template-columns:1fr}
+  .casos-grid{grid-template-columns:1fr}
+  .como-grid{grid-template-columns:1fr}
+  .roi-grid{grid-template-columns:1fr 1fr}
+  .agente-frame iframe{height:600px}
+  .section-title{font-size:clamp(1.5rem,6vw,2rem)}
+  #vlt-fab-panel{width:calc(100vw - 20px);right:10px;bottom:82px;height:72vh}
+  .ticker-inner{gap:2rem}
+  .precios-grid{max-width:100%}
+  .valor-grid{gap:2rem}
+}
 </style>
 </head>
+
+<a id="wa-float" href="https://wa.me/56935208529?text=Hola%20Voltaic%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.845L.057 23.522a.5.5 0 0 0 .625.605l5.803-1.522A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.955 9.955 0 0 1-5.23-1.41l-.375-.22-3.888 1.02 1.037-3.793-.243-.39A9.955 9.955 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+  <span class="wa-tip">+56 9 3520 8529</span>
+</a>
+
 <body>
 
-<div class="hdr">
-  <div class="tag">Voltaic Automatizaciones · Demo en vivo</div>
-  <h1>Tu equipo de ventas IA.<br><em>Pruébalo ahora.</em></h1>
-  <p class="sub">Elige un canal y escribe como cliente. Al final recibirás una propuesta real.</p>
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1" fill="#000" stroke="none"/></svg>
+    </div>
+    Voltaic Automatizaciones
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#casos">Casos reales</a></li>
+    <li><a href="#agente">Demo en vivo</a></li>
+    <li><a href="#precios">Precios</a></li>
+  </ul>
+  <a href="#contacto" class="nav-cta">Diagnóstico gratis</a>
+  <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#servicios" onclick="toggleMenu()">Servicios</a>
+  <a href="#casos" onclick="toggleMenu()">Casos reales</a>
+  <a href="#agente" onclick="toggleMenu()">Demo en vivo</a>
+  <a href="#precios" onclick="toggleMenu()">Precios</a>
+  <a href="#contacto" onclick="toggleMenu()" style="color:var(--accent)">Diagnóstico gratis →</a>
 </div>
 
-<div class="canales" id="canales">
-  <button class="canal on-wa" onclick="setAgente('wa',this)">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.845L.057 23.522a.5.5 0 0 0 .625.605l5.803-1.522A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.955 9.955 0 0 1-5.23-1.41l-.375-.22-3.888 1.02 1.037-3.793-.243-.39A9.955 9.955 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-    WhatsApp
-  </button>
-  <button class="canal" onclick="setAgente('ig',this)">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
-    Instagram
-  </button>
-  <button class="canal" onclick="setAgente('web',this)">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-    Web
-  </button>
-  <button class="canal" onclick="setAgente('fb',this)">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-    Facebook
-  </button>
-  <button class="canal" onclick="setAgente('li',this)">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-    LinkedIn
-  </button>
-  <button class="canal" onclick="setAgente('em',this)">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-    Email
-  </button>
-</div>
-
-<div class="chatbox" id="chatbox">
-  <div class="chat-head">
-    <div class="avatar" id="av"></div>
-    <div>
-      <div class="agent-name" id="agName">Agente WhatsApp</div>
-      <div class="agent-status">
-        <span class="status-dot" id="sDot" style="background:#25D366"></span>
-        <span id="sText" style="font-size:11px;color:#16a34a">En línea ahora</span>
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag"><span class="hero-dot"></span>Automatización con IA · Chile 2026</div>
+    <h1>Tu negocio con un<br><span class="accent">equipo de ventas IA</span><br>trabajando <span class="dim">24/7.</span></h1>
+    <p class="hero-sub">Desde una ferretería hasta un holding — construimos agentes IA que atienden clientes, generan ventas y resuelven consultas en todos tus canales digitales, sin que estés presente.</p>
+    <div class="hero-actions">
+      <a href="#agente" class="btn-primary">Prueba el agente ahora — es gratis</a>
+      <a href="#precios" class="btn-ghost">Ver precios en CLP →</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-val"><span>74</span>%</div><div class="stat-lbl">// consultas_solas</div></div>
+      <div><div class="stat-val"><span>24</span>/7</div><div class="stat-lbl">// disponible</div></div>
+      <div><div class="stat-val"><span>+38</span>%</div><div class="stat-lbl">// más_ventas</div></div>
+      <div><div class="stat-val"><span>2</span> sem</div><div class="stat-lbl">// implementación</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-visual-card">
+      <div class="hvc-tag">// agentes_activos_ahora</div>
+      <div class="hvc-channels">
+        <div class="hvc-ch">
+          <div class="hvc-ch-left"><div class="hvc-ch-dot" style="background:#25D366"></div>WhatsApp</div>
+          <div class="hvc-ch-stat">247 msgs hoy</div>
+        </div>
+        <div class="hvc-ch">
+          <div class="hvc-ch-left"><div class="hvc-ch-dot" style="background:#E1306C"></div>Instagram</div>
+          <div class="hvc-ch-stat">89 DMs</div>
+        </div>
+        <div class="hvc-ch">
+          <div class="hvc-ch-left"><div class="hvc-ch-dot" style="background:#6366f1"></div>Web Chat</div>
+          <div class="hvc-ch-stat">34 sesiones</div>
+        </div>
+        <div class="hvc-ch">
+          <div class="hvc-ch-left"><div class="hvc-ch-dot" style="background:#1877F2"></div>Facebook</div>
+          <div class="hvc-ch-stat">56 msgs</div>
+        </div>
+        <div class="hvc-ch">
+          <div class="hvc-ch-left"><div class="hvc-ch-dot" style="background:#0A66C2"></div>LinkedIn</div>
+          <div class="hvc-ch-stat">12 prospectos</div>
+        </div>
+      </div>
+      <div class="hvc-footer">
+        <div class="hvc-footer-stat"><div class="hvc-footer-val">438</div><div class="hvc-footer-lbl">// total_hoy</div></div>
+        <div class="hvc-footer-stat"><div class="hvc-footer-val">74%</div><div class="hvc-footer-lbl">// sin_humano</div></div>
+        <div class="hvc-footer-stat"><div class="hvc-footer-val">$0</div><div class="hvc-footer-lbl">// costo_extra</div></div>
       </div>
     </div>
   </div>
-  <div class="msgs-wrap" id="msgsWrap">
-    <div class="msgs" id="msgs"></div>
-    <div class="typing" id="typing"><span></span><span></span><span></span></div>
-    <div class="sugs" id="sugs"></div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">WhatsApp IA</span>
+    <span class="ticker-item">Instagram DMs</span>
+    <span class="ticker-item">Facebook Messenger</span>
+    <span class="ticker-item">Chat Web</span>
+    <span class="ticker-item">Email Marketing IA</span>
+    <span class="ticker-item">LinkedIn B2B</span>
+    <span class="ticker-item">Cobranza Automática</span>
+    <span class="ticker-item">Análisis de Facturas</span>
+    <span class="ticker-item">Calificación de Leads</span>
+    <span class="ticker-item">Reportes Automáticos</span>
+    <span class="ticker-item">WhatsApp IA</span>
+    <span class="ticker-item">Instagram DMs</span>
+    <span class="ticker-item">Facebook Messenger</span>
+    <span class="ticker-item">Chat Web</span>
+    <span class="ticker-item">Email Marketing IA</span>
+    <span class="ticker-item">LinkedIn B2B</span>
+    <span class="ticker-item">Cobranza Automática</span>
+    <span class="ticker-item">Análisis de Facturas</span>
+    <span class="ticker-item">Calificación de Leads</span>
+    <span class="ticker-item">Reportes Automáticos</span>
   </div>
-  <div class="input-zona">
-    <div class="input-hint">✏ Escribe aquí tu mensaje</div>
-    <div class="input-row">
-      <input type="text" id="inp" placeholder="Ej: ¿Cuánto cuesta? / Tengo una ferretería..." onkeydown="if(event.key==='Enter')enviar()">
-      <button class="btn-send" id="btnSend" onclick="enviar()">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="#fff" stroke="none"/></svg>
-      </button>
-    </div>
-  </div>
-  <div class="propuesta" id="propuesta">
-    <div class="prop-inner">
-      <div class="prop-badge" id="pBadge"></div>
-      <div class="prop-titulo" id="pTitulo"></div>
-      <div class="prop-desc">Basado en tu conversación, esto es lo que implementaríamos para ti:</div>
-      <div class="prop-lista" id="pLista"></div>
-      <div class="precios">
-        <div class="precio"><div class="precio-val" id="pP1"></div><div class="precio-lbl">CLP · proyecto único</div></div>
-        <div class="precio dest"><div class="precio-val" id="pP2"></div><div class="precio-lbl">CLP / mes suscripción</div></div>
-      </div>
-      <div class="form-campos" id="pForm">
-        <input type="text" id="fNombre" placeholder="Tu nombre completo">
-        <input type="text" id="fEmpresa" placeholder="Nombre de tu empresa o negocio">
-        <input type="text" id="fWa" placeholder="Tu WhatsApp (+56 9 ...)">
-      </div>
-      <button class="btn-prop" id="pBtn" onclick="enviarProp()">Quiero esta solución — agendar llamada gratis</button>
-      <p class="prop-nota">Sin compromiso · Diagnóstico gratuito de 30 minutos</p>
-      <div class="exito" id="exito">
-        <div class="exito-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div class="exito-titulo">¡Listo! Te contactamos pronto</div>
-        <div class="exito-sub" id="exitoSub"></div>
-      </div>
-    </div>
-  </div>
-  <div class="brand">Agente IA por <a href="https://voltaicspa.cl" target="_blank">Voltaic Automatizaciones</a></div>
 </div>
 
-<script>
-// reCAPTCHA v3 site key
-const RECAPTCHA_SITE_KEY = '6LeGeNssAAAAAALD3lE90lUUpcpaNokj0n8HmgDZ';
+<!-- PROPUESTA DE VALOR -->
+<div class="valor" id="valor">
+  <div class="section-tag">// por_qué_voltaic</div>
+  <div class="section-title">No es un chatbot.<br>Es tu equipo completo.</div>
+  <div class="valor-grid">
+    <div class="valor-copy">
+      <p>Imagina contratar <strong>6 vendedores especializados</strong> que trabajan sin descanso, no se enferman, no piden vacaciones y responden en segundos a cada cliente — en WhatsApp, Instagram, Facebook, tu web, email y LinkedIn al mismo tiempo.</p>
+      <p>Eso es exactamente lo que Voltaic Automatizaciones construye para tu negocio. Un <strong>equipo digital que genera ventas, atiende consultas y califica prospectos</strong> mientras tú te enfocas en crecer.</p>
+      <p>El retorno de inversión es rápido — la mayoría de nuestros clientes recuperan lo invertido en el primer mes con el aumento en ventas cerradas.</p>
+      <a href="https://wa.me/56935208529?text=Hola%21%20Quiero%20saber%20m%C3%A1s%20sobre%20Voltaic" class="btn-primary" target="_blank">Habla con nosotros →</a>
+    </div>
+    <div class="valor-items">
+      <div class="valor-item">
+        <div class="valor-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div><div class="valor-item-title">Responde en segundos, no en horas</div><div class="valor-item-desc">Cada cliente recibe atención inmediata 24/7. Sin tiempos de espera que hacen perder ventas.</div></div>
+      </div>
+      <div class="valor-item">
+        <div class="valor-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div><div class="valor-item-title">6 agentes en paralelo, un solo costo</div><div class="valor-item-desc">Atiende miles de conversaciones simultáneas. Lo que antes requería un equipo entero, ahora cuesta una fracción.</div></div>
+      </div>
+      <div class="valor-item">
+        <div class="valor-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div><div class="valor-item-title">ROI rápido y medible</div><div class="valor-item-desc">Reporte mensual con ventas generadas, horas ahorradas y clientes atendidos. Números reales.</div></div>
+      </div>
+      <div class="valor-item">
+        <div class="valor-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div><div class="valor-item-title">Se adapta a cualquier rubro</div><div class="valor-item-desc">Ferretería, clínica, inmobiliaria, holding — configuramos el agente con el lenguaje y productos de tu negocio.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-// URL del backend seguro (Express.js)
-const BACKEND_URL = '/api/chat';
+<!-- SERVICIOS -->
+<section class="services" id="servicios">
+  <div class="section-tag">// servicios</div>
+  <div class="section-title">6 automatizaciones.<br>Resultados reales.</div>
+  <p class="section-sub">Cada una lista en 1–2 semanas, sin equipo técnico de tu parte.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01 /</div>
+      <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div class="service-name">Bot de atención 24/7</div>
+      <div class="service-desc">WhatsApp, Instagram, web. Responde, cotiza y toma pedidos solo. Escala a humano cuando es necesario.</div>
+      <span class="service-price">Desde $490.000 CLP</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02 /</div>
+      <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="service-name">Cobranza automática</div>
+      <div class="service-desc">Recordatorios inteligentes por WhatsApp según días de mora. Reduce cartera vencida 40–60%.</div>
+      <span class="service-price">Desde $780.000 CLP</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03 /</div>
+      <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <div class="service-name">Procesamiento de documentos</div>
+      <div class="service-desc">IA que lee contratos, facturas y formularios. Extrae datos y genera reportes al instante.</div>
+      <span class="service-price">Desde $1.450.000 CLP</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04 /</div>
+      <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="service-name">Calificación de leads</div>
+      <div class="service-desc">IA que filtra, puntúa y agenda reuniones. Tu equipo habla solo con quienes van a comprar.</div>
+      <span class="service-price">Desde $590.000 CLP</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05 /</div>
+      <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <div class="service-name">Reportes financieros automáticos</div>
+      <div class="service-desc">IA que lee tu ERP o Excel y genera el reporte de gestión todos los lunes a las 8 am.</div>
+      <span class="service-price">Desde $690.000 CLP</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06 /</div>
+      <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <div class="service-name">Contenido IA para LinkedIn</div>
+      <div class="service-desc">Sistema que genera y programa publicaciones semanales. 20 minutos de trabajo al mes.</div>
+      <span class="service-price">$290.000 CLP/mes</span>
+    </div>
+  </div>
+</section>
 
-const A={
-  wa:{nombre:'Agente WhatsApp',color:'#25D366',avatarBg:'#dcfce7',cls:'on-wa',statusColor:'#16a34a',statusText:'En línea ahora',sugs:['¿Qué pueden automatizar?','¿Cuánto cuesta?','Tengo un negocio de retail'],pTitulo:'Agente de ventas para WhatsApp',pItems:['Atiende clientes 24/7 sin que estés presente','Cotiza, responde y toma pedidos solo','Escala a humano en casos complejos','Registra conversaciones en Google Sheets'],p1:'$490.000',p2:'$240.000',avatarHtml:'<svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.845L.057 23.522a.5.5 0 0 0 .625.605l5.803-1.522A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.955 9.955 0 0 1-5.23-1.41l-.375-.22-3.888 1.02 1.037-3.793-.243-.39A9.955 9.955 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>',system:'wa'},
-  ig:{nombre:'Agente Instagram',color:'#E1306C',avatarBg:'#fce7f3',cls:'on-ig',statusColor:'#be185d',statusText:'En línea ahora',sugs:['¿Responden DMs automáticamente?','¿Pueden vender por Instagram?','¿Cuánto vale?'],pTitulo:'Agente de ventas para Instagram',pItems:['Responde DMs en menos de 30 segundos','Convierte seguidores en clientes','Activo 24/7 sin costo adicional','Integración con catálogo de productos'],p1:'$490.000',p2:'$240.000',avatarHtml:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="#E1306C" stroke="none"/></svg>',system:'ig'},
-  web:{nombre:'Agente Web',color:'#6366f1',avatarBg:'#eef2ff',cls:'on-web',statusColor:'#4338ca',statusText:'En línea ahora',sugs:['¿Qué automatizan?','¿Cuánto tarda?','Somos empresa mediana'],pTitulo:'Agente para tu sitio web',pItems:['Chat IA que califica visitantes','Agenda reuniones automáticamente','Detecta intención de compra','Integración con CRM'],p1:'$590.000',p2:'$240.000',avatarHtml:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',system:'web'},
-  fb:{nombre:'Agente Facebook',color:'#1877F2',avatarBg:'#eff6ff',cls:'on-fb',statusColor:'#1d4ed8',statusText:'En línea ahora',sugs:['¿Atienden Messenger?','¿Manejan comentarios?','Ver precios'],pTitulo:'Agente para Facebook',pItems:['Responde Messenger y comentarios 24/7','Genera prospectos automáticamente','Sin costo extra por volumen','Reportes semanales'],p1:'$490.000',p2:'$240.000',avatarHtml:'<svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>',system:'fb'},
-  li:{nombre:'Agente LinkedIn',color:'#0A66C2',avatarBg:'#eff6ff',cls:'on-li',statusColor:'#1e40af',statusText:'En línea ahora',sugs:['¿Automatizan B2B?','¿Cuál es el ROI?','Tenemos 5 vendedores'],pTitulo:'Agente B2B en LinkedIn',pItems:['200 contactos/día automáticamente','Mensajes personalizados por industria','Seguimiento hasta agendar reunión','18% tasa de respuesta en Chile'],p1:'$980.000',p2:'$380.000',avatarHtml:'<svg width="20" height="20" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',system:'li'},
-  em:{nombre:'Agente Email',color:'#d97706',avatarBg:'#fffbeb',cls:'on-em',statusColor:'#92400e',statusText:'En línea ahora',sugs:['¿Qué tan efectivo es?','¿Cuántos emails?','Automatizar seguimientos'],pTitulo:'Email marketing con IA',pItems:['Secuencias automáticas de seguimiento','42% apertura vs 20% promedio','Personalización por segmento','Integración con CRM y formularios'],p1:'$690.000',p2:'$290.000',avatarHtml:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',system:'em'}
-};
+<!-- CASOS DE NEGOCIO -->
+<section class="casos" id="casos">
+  <div class="section-tag">// casos_reales</div>
+  <div class="section-title">Funciona para<br>cualquier negocio.</div>
+  <p class="section-sub">Desde comercios locales hasta empresas con múltiples sucursales — el agente se adapta a tu rubro en 30 minutos.</p>
+  <div class="casos-grid">
 
-let cur='wa',nMsgs=0,propMostrada=false;
+    <div class="caso-card">
+      <img class="caso-img" src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80" alt="Ferretería" loading="lazy">
+      <div class="caso-body">
+        <div class="caso-sector">// retail · ferretería</div>
+        <div class="caso-title">Ferretería Don Pedro — ventas por WhatsApp 24/7</div>
+        <div class="caso-desc">Un vendedor respondía WhatsApp hasta las 11 pm. Los fines de semana se perdían pedidos. El agente IA ahora atiende catálogo, precios y toma pedidos completos — incluso cuando está cerrado.</div>
+        <div class="caso-metrics">
+          <div class="caso-metric"><div class="caso-metric-val">+38%</div><div class="caso-metric-lbl">ventas mes</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">74%</div><div class="caso-metric-lbl">sin humano</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">24/7</div><div class="caso-metric-lbl">disponible</div></div>
+        </div>
+      </div>
+    </div>
 
-function setAgente(id,btn){
-  cur=id;nMsgs=0;propMostrada=false;
-  document.querySelectorAll('.canal').forEach(b=>b.className='canal');
-  btn.classList.add(A[id].cls);
-  const a=A[id];
-  document.getElementById('av').style.background=a.avatarBg;
-  document.getElementById('av').innerHTML=a.avatarHtml;
-  document.getElementById('agName').textContent=a.nombre;
-  document.getElementById('sDot').style.background=a.color;
-  document.getElementById('sText').style.color=a.statusColor;
-  document.getElementById('sText').textContent=a.statusText;
-  document.getElementById('btnSend').style.background=a.color;
-  document.getElementById('sugs').innerHTML=a.sugs.map(s=>`<span class="sg" onclick="usarSug(this)">${s}</span>`).join('');
-  document.getElementById('msgs').innerHTML='';
-  document.getElementById('propuesta').style.display='none';
-  document.getElementById('exito').style.display='none';
-  document.getElementById('pForm').style.display='flex';
-  document.getElementById('pBtn').style.display='block';
-  const pn=document.querySelector('.prop-nota');
-  if(pn)pn.style.display='block';
-  burbuja('in','¡Hola! Cuéntame, ¿qué tipo de negocio tienes? Así te explico cómo puedo ayudarte 😊');
+    <div class="caso-card">
+      <img class="caso-img" src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=600&q=80" alt="Clínica" loading="lazy">
+      <div class="caso-body">
+        <div class="caso-sector">// salud · clínica</div>
+        <div class="caso-title">Clínica dental — agenda y consultas automatizadas</div>
+        <div class="caso-desc">La recepcionista respondía WhatsApp hasta las 10 pm agendando horas y respondiendo dudas. Ahora el agente maneja el 74% de las consultas y agenda citas directamente en el sistema.</div>
+        <div class="caso-metrics">
+          <div class="caso-metric"><div class="caso-metric-val">-60%</div><div class="caso-metric-lbl">carga admin</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">+25%</div><div class="caso-metric-lbl">citas agendadas</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">0</div><div class="caso-metric-lbl">horas extra</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="caso-card">
+      <img class="caso-img" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80" alt="Inmobiliaria" loading="lazy">
+      <div class="caso-body">
+        <div class="caso-sector">// inmobiliaria · b2c</div>
+        <div class="caso-title">Inmobiliaria — calificación de leads automática</div>
+        <div class="caso-desc">Recibían 200 consultas al mes. Solo podían llamar a 40. El agente califica cada lead, filtra los interesados reales y agenda visitas — los ejecutivos solo hablan con quienes van a comprar.</div>
+        <div class="caso-metrics">
+          <div class="caso-metric"><div class="caso-metric-val">5x</div><div class="caso-metric-lbl">leads calificados</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">+42%</div><div class="caso-metric-lbl">cierres</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="caso-card">
+      <img class="caso-img" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80" alt="Factoring" loading="lazy">
+      <div class="caso-body">
+        <div class="caso-sector">// finanzas · factoring</div>
+        <div class="caso-title">Empresa de factoring — evaluación IA en 4 segundos</div>
+        <div class="caso-desc">Un analista tardaba 2 días en evaluar y aprobar una factura. El agente IA analiza riesgo, calcula tasas y genera la propuesta en 4 segundos. El analista solo revisa los casos complejos.</div>
+        <div class="caso-metrics">
+          <div class="caso-metric"><div class="caso-metric-val">4 seg</div><div class="caso-metric-lbl">por factura</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">-80%</div><div class="caso-metric-lbl">costo op.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="caso-card">
+      <img class="caso-img" src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80" alt="Estudio jurídico" loading="lazy">
+      <div class="caso-body">
+        <div class="caso-sector">// legal · estudio jurídico</div>
+        <div class="caso-title">Estudio de abogados — revisión de contratos en minutos</div>
+        <div class="caso-desc">Revisaban 80 contratos semanales en 3 días de trabajo. La IA los analiza en 4 minutos, marca cláusulas de riesgo y genera el resumen. Los abogados se dedican a lo que importa.</div>
+        <div class="caso-metrics">
+          <div class="caso-metric"><div class="caso-metric-val">4 min</div><div class="caso-metric-lbl">por contrato</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">20 hrs</div><div class="caso-metric-lbl">ahorradas/sem</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="caso-card">
+      <img class="caso-img" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80" alt="Holding" loading="lazy">
+      <div class="caso-body">
+        <div class="caso-sector">// corporativo · holding</div>
+        <div class="caso-title">Holding multi-rubro — reportes automáticos para directorio</div>
+        <div class="caso-desc">El CFO pasaba 2 días armando el reporte de gestión mensual. Ahora llega solo a su correo cada lunes a las 8 am, consolidando datos de todas las empresas del grupo. Listo para el directorio.</div>
+        <div class="caso-metrics">
+          <div class="caso-metric"><div class="caso-metric-val">2 días</div><div class="caso-metric-lbl">ahorrados/mes</div></div>
+          <div class="caso-metric"><div class="caso-metric-val">100%</div><div class="caso-metric-lbl">automático</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AGENTE EN VIVO -->
+<section class="agente" id="agente">
+  <div class="section-tag">// demo_en_vivo · ia_real</div>
+  <div class="section-title">Habla con el agente.<br>Ahora mismo.</div>
+  <div class="agente-inner">
+    <div class="agente-copy">
+      <h3>Esto es exactamente lo que recibirían tus clientes</h3>
+      <p>Elige el canal, escribe como si fueras un cliente de tu rubro y observa cómo responde el agente con IA real — en tiempo real, sin guión.</p>
+      <p>Al final de la conversación el agente te presenta una propuesta personalizada con precios y siguiente paso. Así cierra ventas solo.</p>
+      <div class="agente-features">
+        <div class="agente-feat"><div class="agente-feat-dot"></div>IA real — cada respuesta generada en vivo, no es un demo grabado</div>
+        <div class="agente-feat"><div class="agente-feat-dot"></div>6 canales disponibles: WhatsApp, Instagram, Facebook, Web, Email, LinkedIn</div>
+        <div class="agente-feat"><div class="agente-feat-dot"></div>Propuesta personalizada con precios al final del chat</div>
+        <div class="agente-feat"><div class="agente-feat-dot"></div>Configuramos el agente con tu negocio en 30 minutos</div>
+        <div class="agente-feat"><div class="agente-feat-dot"></div>Escala a humano automáticamente cuando el cliente lo necesita</div>
+      </div>
+      <a href="https://wa.me/56935208529?text=Hola%21%20Quiero%20este%20agente%20para%20mi%20negocio" class="btn-primary" target="_blank">Quiero esto para mi negocio</a>
+    </div>
+    <div class="agente-frame">
+      <iframe src="/agentes.html" allow="clipboard-write" loading="lazy" title="Agente IA Voltaic en vivo" scrolling="no"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="como" id="como">
+  <div class="section-tag">// proceso</div>
+  <div class="section-title">De cero a funcionando<br>en 2 semanas.</div>
+  <div class="como-grid">
+    <div class="paso">
+      <div class="paso-num">01</div>
+      <div class="paso-title">Diagnóstico gratis (30 min)</div>
+      <div class="paso-desc">Identificamos los 3 procesos con mayor impacto en tu operación. Sin compromiso, sin costo.</div>
+    </div>
+    <div class="paso">
+      <div class="paso-num">02</div>
+      <div class="paso-title">Demo en vivo en 48 horas</div>
+      <div class="paso-desc">Te mostramos el agente funcionando con los datos reales de tu empresa antes de firmar nada.</div>
+    </div>
+    <div class="paso">
+      <div class="paso-num">03</div>
+      <div class="paso-title">Implementación 1–2 semanas</div>
+      <div class="paso-desc">Sin interrumpir tu operación. Sin requerir equipo técnico interno de tu parte.</div>
+    </div>
+    <div class="paso">
+      <div class="paso-num">04</div>
+      <div class="paso-title">Resultados en 30 días</div>
+      <div class="paso-desc">Reporte de ventas generadas, horas ahorradas y ROI calculado. Números reales y medibles.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section class="precios" id="precios">
+  <div class="section-tag">// inversión</div>
+  <div class="section-title">Precios directos.<br>Sin letra chica.</div>
+  <div class="precios-grid">
+    <div class="precio-card">
+      <div class="precio-name">Proyecto único</div>
+      <div class="precio-val">$490.000</div>
+      <div class="precio-period">CLP · pago único</div>
+      <ul class="precio-features">
+        <li>Una automatización completa lista</li>
+        <li>Instalación y capacitación incluida</li>
+        <li>1 mes de soporte post-entrega</li>
+        <li>Demo en vivo antes de firmar</li>
+      </ul>
+      <button class="precio-btn" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Agendar diagnóstico gratis</button>
+    </div>
+    <div class="precio-card featured">
+      <div class="precio-badge">Más popular</div>
+      <div class="precio-name">Suscripción mensual</div>
+      <div class="precio-val">$240.000</div>
+      <div class="precio-period">CLP / mes</div>
+      <ul class="precio-features">
+        <li>Automatizaciones ilimitadas</li>
+        <li>Soporte y mejoras continuas</li>
+        <li>Nuevas integraciones cada mes</li>
+        <li>Reportes mensuales de ventas y ROI</li>
+        <li>Prioridad en nuevos desarrollos</li>
+      </ul>
+      <button class="precio-btn" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Comenzar ahora</button>
+    </div>
+    <div class="precio-card">
+      <div class="precio-name">Revenue share</div>
+      <div class="precio-val">2–5%</div>
+      <div class="precio-period">del ahorro o venta generada en CLP</div>
+      <ul class="precio-features">
+        <li>Sin inversión inicial</li>
+        <li>Solo pagas sobre resultados reales</li>
+        <li>Ideal para empresas medianas y grandes</li>
+        <li>Medición mensual auditada</li>
+      </ul>
+      <button class="precio-btn" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Conversemos</button>
+    </div>
+  </div>
+</section>
+
+<!-- ROI RÁPIDO -->
+<div class="roi">
+  <div class="section-tag">// retorno_de_inversion</div>
+  <div class="section-title">Recuperas lo invertido<br>en el primer mes.</div>
+  <div class="roi-grid">
+    <div class="roi-card">
+      <div class="roi-num">43%</div>
+      <div class="roi-lbl">aumento promedio de productividad reportado por clientes</div>
+    </div>
+    <div class="roi-card">
+      <div class="roi-num">20 hrs</div>
+      <div class="roi-lbl">ahorradas al mes en tareas repetitivas de atención</div>
+    </div>
+    <div class="roi-card">
+      <div class="roi-num">+38%</div>
+      <div class="roi-lbl">aumento en ventas cerradas el primer mes de operación</div>
+    </div>
+    <div class="roi-card">
+      <div class="roi-num">&lt;$100</div>
+      <div class="roi-lbl">USD/mes costo operativo de un sistema IA completo</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA FINAL -->
+<section class="cta-final" id="contacto">
+  <h2>¿Cuántas ventas está<br>perdiendo tu negocio <em>ahora mismo</em>?</h2>
+  <p>30 minutos de diagnóstico gratuito. Te decimos exactamente qué automatizar primero y cuánto te generaría.</p>
+  <a href="https://wa.me/56935208529?text=Hola%21%20Quiero%20agendar%20un%20diagn%C3%B3stico%20gratuito%20de%2030%20minutos" class="cta-wa" target="_blank">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.845L.057 23.522a.5.5 0 0 0 .625.605l5.803-1.522A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.955 9.955 0 0 1-5.23-1.41l-.375-.22-3.888 1.02 1.037-3.793-.243-.39A9.955 9.955 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    Agendar diagnóstico gratis — +56 9 3520 8529
+  </a>
+  <p class="cta-note">Sin compromiso · 100% gratuito · Resultado concreto en 30 minutos</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div class="footer-logo-icon">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1" fill="#000" stroke="none"/></svg>
+    </div>
+    Voltaic Automatizaciones
+  </div>
+  <span class="footer-copy">© 2026 Voltaic Automatizaciones SpA · Chile · +56 9 3520 8529</span>
+  <div class="footer-links">
+    <a href="/cdn-cgi/l/email-protection#1a7275767b5a6c75766e7b7379696a7b347976"><span class="__cf_email__" data-cfemail="4d2522212c0d3b2221392c242e3e3d2c632e21">[email&#160;protected]</span></a>
+    <a href="https://wa.me/56935208529">WhatsApp</a>
+  </div>
+</footer>
+
+<!-- FAB AGENTE -->
+<div id="vlt-fab">
+  <span id="vlt-fab-tip">Habla con un agente IA</span>
+  <button id="vlt-fab-btn" onclick="toggleFab()" aria-label="Abrir agente IA">
+    <svg id="fab-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <svg id="fab-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+</div>
+<div id="vlt-fab-panel">
+  <iframe src="/agentes.html" allow="clipboard-write" title="Agente IA Voltaic" scrolling="no"></iframe>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function toggleFab(){
+  var p=document.getElementById('vlt-fab-panel');
+  var o=document.getElementById('fab-open');
+  var c=document.getElementById('fab-close');
+  var open=p.style.display==='block';
+  p.style.display=open?'none':'block';
+  o.style.display=open?'block':'none';
+  c.style.display=open?'none':'block';
 }
 
-function burbuja(rol,txt){
-  const c=document.getElementById('msgs');
-  const d=document.createElement('div');
-  d.className='bbl '+(rol==='in'?'bbl-in':'bbl-out');
-  if(rol==='out')d.style.background=A[cur].color;
-  d.textContent=txt;
-  c.appendChild(d);
-  c.scrollTop=c.scrollHeight;
-  document.getElementById('msgsWrap').scrollTop=99999;
+function toggleMenu(){
+  var m=document.getElementById('mobileMenu');
+  m.classList.toggle('open');
 }
 
-function usarSug(el){
-  document.getElementById('inp').value=el.textContent;
-  enviar();
-}
-
-function mostrarProp(){
-  if(propMostrada)return;
-  propMostrada=true;
-  const a=A[cur];
-  const badge=document.getElementById('pBadge');
-  badge.textContent='✦ Propuesta personalizada para tu negocio';
-  badge.style.cssText=`background:${a.color}18;color:${a.color};display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:4px 12px;border-radius:100px;margin-bottom:.75rem`;
-  document.getElementById('pTitulo').textContent=a.pTitulo;
-  document.getElementById('pLista').innerHTML=a.pItems.map(i=>`<div class="prop-item"><div class="prop-check" style="background:${a.color}18"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="${a.color}" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>${i}</div>`).join('');
-  document.getElementById('pP1').textContent=a.p1;
-  document.getElementById('pP2').textContent=a.p2;
-  document.getElementById('pBtn').style.background=a.color;
-  const p=document.getElementById('propuesta');
-  p.style.display='block';
-  setTimeout(()=>p.scrollIntoView({behavior:'smooth',block:'start'}),150);
-}
-
-async function enviar(){
-  const inp=document.getElementById('inp');
-  const txt=inp.value.trim();
-  if(!txt||document.getElementById('btnSend').disabled)return;
-  document.getElementById('btnSend').disabled=true;
-  inp.value='';
-  burbuja('out',txt);
-  nMsgs++;
-  const typ=document.getElementById('typing');
-  typ.style.display='flex';
-  document.getElementById('msgsWrap').scrollTop=99999;
-
-  try{
-    // Obtener token de reCAPTCHA v3
-    const captchaToken = await grecaptcha.execute(RECAPTCHA_SITE_KEY, {action: 'chat'});
-
-    const r=await fetch(BACKEND_URL,{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify({
-        prompt:txt,
-        captchaToken:captchaToken
-      })
-    });
-
-    if(!r.ok)throw new Error('Error '+r.status);
-    const d=await r.json();
-
-    // El servidor devuelve la respuesta en d.reply
-    let reply = d.reply || d.response || d.message || JSON.stringify(d);
-
-    reply = String(reply).trim();
-
-    const disparar = reply.includes('PROPUESTA') || nMsgs >= 3;
-    reply = reply.replace('PROPUESTA','').trim();
-    if(!reply) reply = '¡He preparado una propuesta personalizada para tu negocio! 👇';
-
-    typ.style.display='none';
-    burbuja('in', reply);
-    if(disparar) setTimeout(mostrarProp, 800);
-
-  }catch(e){
-    typ.style.display='none';
-    burbuja('in','Tuve un problema de conexión. ¿Lo intentamos de nuevo? 🙏');
-    console.error('Error al enviar:',e);
+document.addEventListener('click',function(e){
+  var m=document.getElementById('mobileMenu');
+  var btn=document.querySelector('.nav-hamburger');
+  if(!m.contains(e.target)&&!btn.contains(e.target)){
+    m.classList.remove('open');
   }
-
-  document.getElementById('btnSend').disabled=false;
-  inp.focus();
-}
-
-function enviarProp(){
-  const n=document.getElementById('fNombre').value.trim();
-  const e=document.getElementById('fEmpresa').value.trim();
-  const w=document.getElementById('fWa').value.trim();
-  let ok=true;
-  [['fNombre',n],['fEmpresa',e],['fWa',w]].forEach(([id,v])=>{
-    document.getElementById(id).style.borderColor=v?'#e0e0e0':'#f87171';
-    if(!v)ok=false;
-  });
-  if(!ok)return;
-  document.getElementById('pForm').style.display='none';
-  document.getElementById('pBtn').style.display='none';
-  const pn=document.querySelector('.prop-nota');
-  if(pn)pn.style.display='none';
-  document.getElementById('exitoSub').textContent=`Hola ${n}, te escribiremos al ${w} en menos de 2 horas. ¡Gracias!`;
-  document.getElementById('exito').style.display='block';
-  document.getElementById('exito').scrollIntoView({behavior:'smooth',block:'nearest'});
-  const msg=encodeURIComponent(`Hola Voltaic! Me interesa el agente.\nNombre: ${n}\nEmpresa: ${e}\nWhatsApp: ${w}`);
-  setTimeout(()=>window.open(`https://wa.me/56935208529?text=${msg}`,'_blank'),1500);
-}
-
-setAgente('wa',document.querySelector('.canal'));
-
-document.getElementById('inp').addEventListener('focus',()=>{
-  document.querySelector('meta[name=viewport]').setAttribute('content','width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
 });
-</script>
-</body>
-</html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.08});
+
+document.querySelectorAll('.service-card,.pas                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
