@@ -1,0 +1,305 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                  GUÍA DE INSTALACIÓN PASO A PASO                            ║
+║              Voltaic Automatizaciones - Chat IA en vivo                      ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+TIEMPO TOTAL: 10 minutos
+DIFICULTAD: ⭐ Muy fácil (solo copiar/pegar)
+
+════════════════════════════════════════════════════════════════════════════════
+PASO 1: REEMPLAZAR server.js (2 minutos)
+════════════════════════════════════════════════════════════════════════════════
+
+1.1) Abre tu carpeta: C:\Users\[TU_USUARIO]\Desktop\Web_Nueva_Voltaic\
+
+1.2) Busca el archivo "server.js"
+    └─ Icono: Un cuadrado con "js" adentro
+    └─ Si no lo ves, busca "server" (sin extensión)
+
+1.3) Click derecho en server.js
+    ├─ Selecciona "Abrir con"
+    ├─ Elige "Visual Studio Code" o "Bloc de notas"
+    └─ El archivo se abre en blanco/con código
+
+1.4) Selecciona TODO el contenido
+    ├─ Ctrl+A (Windows/Linux)
+    └─ Cmd+A (Mac)
+
+1.5) Borra TODO
+    ├─ Presiona Delete o Backspace
+    └─ El archivo debe quedar en blanco
+
+1.6) Abre el archivo "server_corregido.js"
+    ├─ Click derecho → "Abrir con" → Mismo programa
+    └─ Copia TODO su contenido (Ctrl+A → Ctrl+C)
+
+1.7) Vuelve al server.js original
+    ├─ En la ventana anterior
+    └─ Pega TODO (Ctrl+V)
+
+1.8) Guarda
+    ├─ Ctrl+S
+    └─ Verás la confirmación de guardado
+
+✅ PASO 1 COMPLETADO
+
+════════════════════════════════════════════════════════════════════════════════
+PASO 2: VERIFICAR index.html (2 minutos)
+════════════════════════════════════════════════════════════════════════════════
+
+2.1) Abre index.html con un editor de texto
+
+2.2) Ve al FINAL del archivo
+    ├─ Ctrl+End (Windows)
+    ├─ Cmd+End (Mac)
+    └─ Deberías ver </body> al final
+
+2.3) Busca esta sección (presiona Ctrl+F):
+    ├─ Busca: "Conexión del Chat"
+    └─ Si la ENCUENTRAS → SALTA a PASO 3
+    └─ Si NO la ENCUENTRAS → SIGUE LEYENDO
+
+2.4) Si NO existe, copia este código:
+
+═══ COPIAR DESDE AQUÍ ═══
+
+<script>
+  // Conexión del Chat con el Servidor Voltaic
+  const chatForm = document.querySelector('#chat-form');
+  const chatInput = document.querySelector('#chat-input');
+  const chatBox = document.querySelector('#chat-box');
+
+  if (chatForm) {
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = chatInput.value.trim();
+      if (!msg) return;
+
+      // Mostrar mensaje del usuario
+      chatBox.innerHTML += `<div style="color: #10b981; margin-bottom: 10px;"><b>Tú:</b> ${msg}</div>`;
+      chatInput.value = '';
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: msg })
+        });
+        const data = await res.json();
+        if (data.success) {
+          chatBox.innerHTML += `<div style="color: white; margin-bottom: 10px;"><b>Voltaic IA:</b> ${data.response}</div>`;
+        } else {
+          chatBox.innerHTML += `<div style="color: orange;">Error: ${data.error}</div>`;
+        }
+      } catch (err) {
+        chatBox.innerHTML += `<div style="color: red;">Error: El servidor no responde</div>`;
+      }
+      chatBox.scrollTop = chatBox.scrollHeight;
+    });
+  }
+</script>
+
+═══ COPIAR HASTA AQUÍ ═══
+
+2.5) Posiciónate justo ANTES de </body>
+    ├─ Si no ves </body>, busca con Ctrl+F
+    ├─ Coloca el cursor delante de </body>
+    └─ Presiona Enter para crear espacio
+
+2.6) Pega el código (Ctrl+V)
+
+2.7) Guarda (Ctrl+S)
+
+✅ PASO 2 COMPLETADO
+
+════════════════════════════════════════════════════════════════════════════════
+PASO 3: CONFIGURAR VERCEL (4 minutos)
+════════════════════════════════════════════════════════════════════════════════
+
+3.1) Abre: https://vercel.com/dashboard
+
+3.2) Si no tienes sesión iniciada:
+    ├─ Haz login
+    └─ Confirma tu correo si es necesario
+
+3.3) Busca tu proyecto
+    ├─ En la lista de proyectos
+    ├─ Busca: "voltaic-premium" o "web-nueva-voltaic"
+    └─ Click en él
+
+3.4) Abre Settings
+    ├─ En el top de la página
+    ├─ Busca botón "Settings"
+    └─ Click en él
+
+3.5) Busca "Environment Variables"
+    ├─ En el menú izquierdo
+    ├─ Debajo de "General"
+    └─ Click en "Environment Variables"
+
+3.6) AGREGA VARIABLE 1: GROQ_API_KEY
+    a) Click en "Add New" o el botón de agregar
+    b) En "Key" escribe: GROQ_API_KEY
+    c) En "Value" pega tu código de Groq (gsk_XXXXX...)
+       └─ Si no tienes, ve a: https://console.groq.com
+       └─ Click en "API Keys"
+       └─ Copia tu clave
+    d) Click en "Save" o "Add"
+
+3.7) AGREGA VARIABLE 2: GROQ_API_URL
+    a) Click en "Add New" nuevamente
+    b) En "Key" escribe: GROQ_API_URL
+    c) En "Value" escribe EXACTAMENTE esto:
+       └─ https://api.groq.com/openai/v1/chat/completions
+    d) Click en "Save" o "Add"
+
+3.8) AGREGA VARIABLE 3: NODE_ENV
+    a) Click en "Add New"
+    b) En "Key" escribe: NODE_ENV
+    c) En "Value" escribe: production
+    d) Click en "Save" o "Add"
+
+3.9) Verifica que están las 3 variables
+    ├─ GROQ_API_KEY = gsk_XXXXX
+    ├─ GROQ_API_URL = https://api.groq.com/...
+    └─ NODE_ENV = production
+
+✅ PASO 3 COMPLETADO
+
+════════════════════════════════════════════════════════════════════════════════
+PASO 4: REDEPLOY Y TESTEAR (2 minutos)
+════════════════════════════════════════════════════════════════════════════════
+
+4.1) Vuelve a la pestaña de tu proyecto
+    ├─ Click en "Deployments"
+    └─ Deberías ver un listado de deploys
+
+4.2) Click en el más reciente
+    ├─ Usualmente en la parte superior
+    └─ Verás un botón o opción "Redeploy"
+
+4.3) Haz clic en "Redeploy"
+    ├─ Se abrirá un cuadro
+    ├─ Click en "Redeploy"
+    └─ Espera 2-3 minutos
+
+4.4) Cuando termine (dice "Ready"):
+    ├─ Abre: https://voltaicspa.cl
+    └─ O tu dominio correcto
+
+4.5) TEST EN LA WEB:
+    a) Busca el botón CHAT (esquina inferior derecha)
+    b) Click en el botón
+    c) Se abre un chat pequeño
+    d) Escribe: "Hola, tengo una ferretería"
+    e) ESPERA respuesta de la IA
+
+    ✅ SI VES RESPUESTA = TODO FUNCIONA
+    ❌ SI VES ERROR = VE AL TROUBLESHOOTING
+
+════════════════════════════════════════════════════════════════════════════════
+TROUBLESHOOTING: SI ALGO FALLA
+════════════════════════════════════════════════════════════════════════════════
+
+ERROR: "CORS blocked"
+─────────────────
+Causa: El servidor bloquea request desde voltaicspa.cl
+Solución:
+  1. Ve a Vercel Settings → Environment Variables
+  2. Busca si existe: ALLOWED_ORIGINS
+  3. Si existe, verifica que contenga: voltaicspa.cl
+  4. Si no existe, NO la agregues (no es necesaria con server_corregido.js)
+  5. Redeploy
+
+ERROR: "API Key not found"
+──────────────────────
+Causa: GROQ_API_KEY no está en Vercel o está vacía
+Solución:
+  1. Ve a Vercel Settings → Environment Variables
+  2. Busca GROQ_API_KEY
+  3. Verifica que el valor NO esté vacío
+  4. Si está vacío, pega tu clave desde: https://console.groq.com
+  5. Redeploy
+
+ERROR: "500 Error al conectar con la IA"
+────────────────────────────────────────
+Causa: Probablemente GROQ_API_URL falta
+Solución:
+  1. Ve a Vercel Settings → Environment Variables
+  2. Verifica que existe: GROQ_API_URL
+  3. Valor debe ser: https://api.groq.com/openai/v1/chat/completions
+  4. Si falta, agrégalo
+  5. Redeploy
+
+ERROR: "El servidor no responde"
+────────────────────────────
+Causa: El servidor (server.js) no está corriendo o está en error
+Solución:
+  1. Ve a Vercel → Deployments
+  2. Click en el deployment actual
+  3. Click en "Logs"
+  4. Busca mensajes rojos (errores)
+  5. Si ves algo como "undefined GROQ_API_KEY"
+     → Falta una variable en Environment Variables
+
+════════════════════════════════════════════════════════════════════════════════
+CHECKLIST FINAL
+════════════════════════════════════════════════════════════════════════════════
+
+Antes de decir "¡Listo!":
+
+✅ Pasos completados:
+   ☐ Reemplacé server.js con server_corregido.js
+   ☐ Verifiqué/agregué script de chat en index.html
+   ☐ Agregué 3 variables en Vercel (GROQ_API_KEY, GROQ_API_URL, NODE_ENV)
+   ☐ Hice Redeploy en Vercel
+   ☐ Esperé 2-3 minutos a que Vercel desplegara
+
+✅ Testeos completados:
+   ☐ Abro https://voltaicspa.cl
+   ☐ Veo el botón de chat en esquina inferior derecha
+   ☐ Click en el botón abre un chat
+   ☐ Escribo un mensaje
+   ☐ Veo respuesta de la IA (no es error)
+   ☐ El mensaje aparece bien formateado
+
+✅ Si todo está verde:
+   🎉 ¡LISTO! Tu chat IA está funcionando en voltaicspa.cl
+
+════════════════════════════════════════════════════════════════════════════════
+PREGUNTAS FRECUENTES
+════════════════════════════════════════════════════════════════════════════════
+
+P: ¿Dónde obtengo GROQ_API_KEY?
+R: Ve a https://console.groq.com → Crea cuenta → API Keys → Copia la clave
+
+P: ¿Es seguro pegar mi API Key en Vercel?
+R: Sí, Vercel tiene seguridad de nivel empresarial.
+   La clave está encriptada y nunca se expone públicamente.
+
+P: ¿Si cambio algo en index.html, debo hacer algo más?
+R: Sí, deber hacer:
+   1. git add .
+   2. git commit -m "cambios"
+   3. git push
+   (O subirlo manualmente a Vercel)
+
+P: ¿El chat funciona en localhost también?
+R: Sí, si corres: npm start
+   Abre http://localhost:3000 y prueba
+
+P: ¿Cuánto tarda en actualizar después de Redeploy?
+R: 2-3 minutos típicamente
+
+P: ¿Puedo tener múltiples chats?
+R: Sí, pero necesitarías múltiples endpoints en server.js
+
+════════════════════════════════════════════════════════════════════════════════
+
+Documento creado: 2026-05-06
+Versión: 1.0
+Apoyo: cristiangodoymarchant@gmail.com
+
+🚀 ¡Felicidades! Tu chat IA está listo para ir en vivo.
+
+════════════════════════════════════════════════════════════════════════════════
