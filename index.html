@@ -5,56 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VoltaicSpA | Inteligencia Artificial & Automatización</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;700;900&display=swap');
         
+        :root {
+            --bg-color: #050505;
+            --surface-color: #111;
+            --border-color: #222;
+            --primary-color: #09f;
+            --text-main: #fff;
+            --text-muted: #888;
+        }
+
         body {
-            background-color: #050505;
-            color: #fff;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             font-family: 'Urbanist', sans-serif;
             margin: 0;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* Navbar */
+        /* --- NAVBAR --- */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 50px;
+            padding: 20px 50px;
             position: fixed;
             width: 100%;
             box-sizing: border-box;
             z-index: 100;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #1a1a1a;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
         }
-        .logo { font-size: 24px; font-weight: 700; letter-spacing: 2px; }
+        .logo { font-size: 26px; font-weight: 900; letter-spacing: 1px; }
+        .logo span { color: var(--primary-color); }
         .nav-links { display: flex; gap: 30px; font-weight: 500; }
-        .nav-links a { color: #aaa; text-decoration: none; transition: color 0.3s; }
-        .nav-links a:hover { color: #09f; }
-        
-        /* Secciones Generales */
-        section {
-            padding: 100px 50px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .nav-links a { color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary-color); }
+        .btn-nav {
+            background: var(--text-main);
+            color: var(--bg-color);
+            padding: 10px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
         }
-        .section-title {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #fff 0%, #555 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .section-subtitle {
-            color: #888;
-            font-size: 1.1rem;
-            margin-bottom: 50px;
-        }
+        .btn-nav:hover { background: var(--primary-color); color: #fff; }
 
-        /* Hero Section */
+        /* --- LAYOUT GLOBAL --- */
+        section { padding: 120px 50px; max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 70px; }
+        .section-tag { color: var(--primary-color); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+        .section-title { font-size: 3.5rem; margin: 0 0 20px 0; line-height: 1.1; background: linear-gradient(90deg, #fff, #777); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .section-subtitle { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        /* --- HERO --- */
         .hero {
             height: 100vh;
             display: flex;
@@ -62,365 +70,225 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: radial-gradient(circle at center, #111 0%, #050505 70%);
+            background: radial-gradient(circle at center, #151515 0%, #050505 70%);
             padding: 0 20px;
-        }
-        .badge {
-            background: #111;
-            border: 1px solid #333;
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 14px;
-            color: #09f;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-        .hero h1 {
-            font-size: 5.5rem;
-            margin: 0 0 20px 0;
-            background: linear-gradient(90deg, #fff 30%, #555 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -2px;
-            line-height: 1.1;
-        }
-        .hero p {
-            color: #aaa;
-            font-size: 1.25rem;
-            max-width: 700px;
-            line-height: 1.6;
-        }
-
-        /* Grid Cards */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        .card {
-            background: #0f0f0f;
-            border: 1px solid #222;
-            border-radius: 20px;
-            padding: 40px;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: #09f;
-        }
-        .card h3 {
-            font-size: 1.5rem;
             margin-top: 0;
-            margin-bottom: 15px;
-            color: #fff;
         }
-        .card p {
-            color: #888;
-            line-height: 1.6;
-            margin-bottom: 0;
-        }
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 153, 255, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            color: #09f;
-        }
+        .hero .badge { background: transparent; border: 1px solid var(--border-color); padding: 8px 24px; border-radius: 30px; color: var(--text-muted); margin-bottom: 30px; font-weight: 500; }
+        .hero .badge span { color: var(--primary-color); font-weight: 700; }
+        .hero h1 { font-size: 6rem; margin: 0 0 20px 0; background: linear-gradient(180deg, #fff 30%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -2px; line-height: 1; font-weight: 900; }
+        .hero p { color: var(--text-muted); font-size: 1.3rem; max-width: 700px; line-height: 1.6; margin-bottom: 40px; }
+        .hero-btns a { margin: 0 10px; }
 
-        footer {
-            border-top: 1px solid #1a1a1a;
-            padding: 50px;
-            text-align: center;
-            color: #666;
-            margin-top: 50px;
-        }
+        /* --- ABOUT / STATS --- */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; background: var(--surface-color); padding: 50px; border-radius: 20px; border: 1px solid var(--border-color); }
+        .stat-item h3 { font-size: 3.5rem; margin: 0; color: var(--primary-color); }
+        .stat-item p { color: var(--text-muted); font-weight: 500; margin-top: 10px; }
 
-        /* Botón Interface Voz */
-        .voice-btn {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            background: linear-gradient(135deg, #09f, #005bb5);
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(0, 153, 255, 0.4);
-            z-index: 1000;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .voice-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 153, 255, 0.7);
-        }
-        .voice-btn.recording {
-            background: linear-gradient(135deg, #f00, #b50000);
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.7);
-            animation: pulseBtn 1.5s infinite;
-        }
+        /* --- SERVICES --- */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 20px; padding: 40px; transition: transform 0.3s, border-color 0.3s; }
+        .card:hover { transform: translateY(-10px); border-color: var(--primary-color); }
+        .card h3 { font-size: 1.6rem; margin: 20px 0 15px 0; }
+        .card p { color: var(--text-muted); line-height: 1.6; margin: 0; }
+        .icon-box { width: 60px; height: 60px; background: rgba(0, 153, 255, 0.1); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: var(--primary-color); }
 
-        /* Modal del Chat de Voz */
-        .chat-modal {
-            position: fixed;
-            bottom: 130px;
-            right: 40px;
-            width: 320px;
-            background: rgba(15, 15, 15, 0.95);
-            border: 1px solid #333;
-            border-radius: 20px;
-            padding: 25px;
-            display: none;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-            z-index: 999;
-            text-align: center;
-        }
-        .chat-modal.active { display: block; animation: slideUp 0.3s ease; }
-        
-        .status { color: #09f; font-size: 1.1rem; margin-bottom: 15px; font-weight: 700; }
-        .user-text { color: #fff; font-size: 0.9rem; margin-bottom: 15px; font-style: italic; min-height: 20px; }
-        
-        .waves { display: flex; justify-content: center; gap: 6px; height: 40px; align-items: center; margin-bottom: 20px; }
-        .wave { width: 6px; height: 10px; background: #fff; border-radius: 5px; animation: pulse 1s infinite ease-in-out; opacity: 0.3; }
-        .chat-modal.listening .wave { background: #0f0; opacity: 1; }
-        .chat-modal.speaking .wave { background: #09f; opacity: 1; }
-        
-        .wave:nth-child(1) { animation-delay: 0.0s; }
-        .wave:nth-child(2) { animation-delay: 0.2s; }
-        .wave:nth-child(3) { animation-delay: 0.4s; }
-        .wave:nth-child(4) { animation-delay: 0.2s; }
-        .wave:nth-child(5) { animation-delay: 0.0s; }
+        /* --- PROJECTS --- */
+        .project-card { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; margin-bottom: 60px; background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; }
+        .project-img { background: #1a1a1a; height: 400px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #333; }
+        .project-info { padding: 40px; }
+        .project-info h3 { font-size: 2.5rem; margin: 0 0 20px 0; }
+        .project-info p { color: var(--text-muted); line-height: 1.7; margin-bottom: 30px; }
+        .tag-list { display: flex; gap: 10px; flex-wrap: wrap; }
+        .tag-list span { background: #000; border: 1px solid var(--border-color); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; color: #ccc; }
 
-        @keyframes pulse { 0%, 100% { height: 10px; } 50% { height: 40px; } }
-        @keyframes pulseBtn { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* --- PRICING --- */
+        .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; max-width: 900px; margin: 0 auto; }
+        .price-card { background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 20px; padding: 50px; position: relative; }
+        .price-card.popular { border-color: var(--primary-color); background: linear-gradient(180deg, #111 0%, #050505 100%); }
+        .price-card h3 { font-size: 1.5rem; margin-top: 0; }
+        .price { font-size: 3.5rem; font-weight: 900; margin: 20px 0; }
+        .price span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
+        .features { list-style: none; padding: 0; margin: 30px 0; }
+        .features li { padding: 10px 0; border-bottom: 1px solid var(--border-color); color: #ccc; display: flex; align-items: center; gap: 10px;}
+        .features li::before { content: '✓'; color: var(--primary-color); font-weight: bold; }
+        .btn-price { display: block; text-align: center; background: #fff; color: #000; padding: 15px; border-radius: 30px; font-weight: 700; text-decoration: none; transition: 0.3s; }
+        .price-card.popular .btn-price { background: var(--primary-color); color: #fff; }
+
+        /* --- FOOTER --- */
+        footer { border-top: 1px solid var(--border-color); padding: 60px 50px; text-align: center; color: var(--text-muted); background: #000; margin-top: 50px; }
+        .footer-logo { font-size: 2rem; font-weight: 900; color: #fff; margin-bottom: 20px; }
+        .footer-logo span { color: var(--primary-color); }
+
+        @media (max-width: 768px) {
+            .stats-grid, .project-card, .pricing-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 3.5rem; }
+            .project-img { height: 250px; }
+            header { padding: 15px 20px; }
+            .nav-links { display: none; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">VOLTAIC<span style="color:#09f">SPA</span></div>
+        <div class="logo">VOLTAIC<span>SPA</span></div>
         <nav class="nav-links">
+            <a href="#inicio">Inicio</a>
             <a href="#servicios">Servicios</a>
-            <a href="#tecnologia">Tecnología</a>
+            <a href="#proyectos">Proyectos</a>
+            <a href="#precios">Planes</a>
         </nav>
+        <a href="#precios" class="btn-nav">Ver Planes</a>
     </header>
 
-    <div class="hero">
-        <div class="badge">Sistemas Inteligentes de Alta Disponibilidad</div>
+    <section id="inicio" class="hero">
+        <div class="badge">Especialistas en <span>n8n, Docker & IA Privada</span></div>
         <h1>El Cerebro Operativo<br>de tu Empresa</h1>
-        <p>Transformamos flujos de trabajo complejos en sistemas automatizados. Desde la gestión de atención y cobranza vía WhatsApp, hasta arquitecturas de IA privada garantizando la soberanía de tus datos.</p>
-    </div>
+        <p>Transformamos flujos de trabajo complejos en sistemas automatizados sin intervención humana. Desde embudos de WhatsApp hasta arquitecturas locales garantizando tu soberanía de datos.</p>
+        <div class="hero-btns">
+            <a href="#servicios" class="btn-nav" style="padding: 15px 35px; font-size: 1.1rem;">Ver Soluciones</a>
+        </div>
+    </section>
 
-    <section id="servicios">
-        <h2 class="section-title">Soluciones Avanzadas</h2>
-        <p class="section-subtitle">Ingeniería en automatización para escalar operaciones sin aumentar costos operativos.</p>
-        
-        <div class="grid">
-            <div class="card">
-                <div class="card-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                </div>
-                <h3>Flujos en n8n</h3>
-                <p>Orquestación de procesos comerciales, sincronización de inventarios y logística, conectando todos tus sistemas internos en un solo flujo de trabajo sin fisuras.</p>
+    <section id="about">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>+12</h3>
+                <p>Años de Experiencia en IT</p>
             </div>
-            
-            <div class="card">
-                <div class="card-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                </div>
-                <h3>Agentes IA & WhatsApp</h3>
-                <p>Despliegue de asistentes impulsados por Groq para atención al cliente 24/7, calificación de leads y módulos de cobranza automatizada en tiempo real.</p>
+            <div class="stat-item">
+                <h3>99%</h3>
+                <p>Reducción de Tareas Manuales</p>
             </div>
-            
-            <div class="card">
-                <div class="card-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-                </div>
-                <h3>Soberanía de Datos</h3>
-                <p>Implementación de LLMs locales mediante Ollama en entornos Linux/Docker. Mantén el control total de tu información corporativa sin depender de la nube pública.</p>
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p>Operación Ininterrumpida</p>
+            </div>
+            <div class="stat-item">
+                <h3>100%</h3>
+                <p>Soberanía de Datos</p>
             </div>
         </div>
     </section>
 
-    <section id="tecnologia">
-        <h2 class="section-title">Infraestructura</h2>
-        <p class="section-subtitle">Tecnologías sobre las que construimos el futuro de tu negocio.</p>
+    <section id="servicios">
+        <div class="section-header">
+            <span class="section-tag">Nuestras Soluciones</span>
+            <h2 class="section-title">Ingeniería en Automatización</h2>
+            <p class="section-subtitle">Diseñamos arquitecturas tecnológicas escalables para que tu negocio funcione en piloto automático.</p>
+        </div>
         
-        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-            <div class="card" style="text-align: center; padding: 30px;">
-                <h3 style="margin-bottom: 5px;">n8n</h3>
-                <p style="font-size: 0.9rem;">Automatización Nodal</p>
+        <div class="grid-3">
+            <div class="card">
+                <div class="icon-box">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                </div>
+                <h3>Flujos Avanzados en n8n</h3>
+                <p>Orquestación de procesos comerciales, sincronización de CRMs, inventarios y logística, conectando todos tus sistemas internos mediante integraciones robustas.</p>
             </div>
-            <div class="card" style="text-align: center; padding: 30px;">
-                <h3 style="margin-bottom: 5px;">Docker & Linux</h3>
-                <p style="font-size: 0.9rem;">Despliegue Local</p>
+            
+            <div class="card">
+                <div class="icon-box">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                </div>
+                <h3>Agentes IA & WhatsApp</h3>
+                <p>Despliegue de asistentes conversacionales en tiempo real para atención al cliente, calificación de leads y módulos de cobranza automatizada.</p>
             </div>
-            <div class="card" style="text-align: center; padding: 30px;">
-                <h3 style="margin-bottom: 5px;">Groq & Gemini</h3>
-                <p style="font-size: 0.9rem;">Inferencia de Ultra Baja Latencia</p>
+            
+            <div class="card">
+                <div class="icon-box">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                </div>
+                <h3>Soberanía de Datos</h3>
+                <p>Implementación de Modelos de Lenguaje (LLMs) On-Premise utilizando Ollama, Docker y Linux. Privacidad absoluta para tu información confidencial.</p>
             </div>
-            <div class="card" style="text-align: center; padding: 30px;">
-                <h3 style="margin-bottom: 5px;">Ollama</h3>
-                <p style="font-size: 0.9rem;">Modelos Privados On-Premise</p>
+        </div>
+    </section>
+
+    <section id="proyectos">
+        <div class="section-header">
+            <span class="section-tag">Casos de Uso</span>
+            <h2 class="section-title">Proyectos Destacados</h2>
+        </div>
+
+        <div class="project-card">
+            <div class="project-img">
+                { Gráfico de Flujo n8n }
+            </div>
+            <div class="project-info">
+                <h3 style="color:#09f; font-size:1.2rem; margin-bottom:10px;">Comercio & Logística</h3>
+                <h3>Sistema de Cobranza Inteligente</h3>
+                <p>Desarrollamos un flujo continuo que detecta facturas vencidas, interactúa con el cliente vía WhatsApp simulando un operador humano, negocia acuerdos de pago y actualiza el estado, sin supervisión manual.</p>
+                <div class="tag-list">
+                    <span>n8n</span>
+                    <span>API WhatsApp</span>
+                    <span>IA Integrada</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-info">
+                <h3 style="color:#09f; font-size:1.2rem; margin-bottom:10px;">Arquitectura Segura</h3>
+                <h3>Servidor IA Corporativo Local</h3>
+                <p>Despliegue de un entorno Linux robusto con Docker para correr modelos locales a través de Ollama. Permite analizar documentos y redactar informes usando IA sin enviar datos a servidores externos.</p>
+                <div class="tag-list">
+                    <span>Lubuntu Server</span>
+                    <span>Docker</span>
+                    <span>Ollama LLM</span>
+                </div>
+            </div>
+            <div class="project-img">
+                { Terminal Linux / Server }
+            </div>
+        </div>
+    </section>
+
+    <section id="precios">
+        <div class="section-header">
+            <span class="section-tag">Planes de Mantenimiento</span>
+            <h2 class="section-title">Asegura tu Infraestructura</h2>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h3>Soporte Standard</h3>
+                <div class="price">$150.000 <span>/mes</span></div>
+                <p style="color:var(--text-muted);">Ideal para flujos de automatización básicos.</p>
+                <ul class="features">
+                    <li>Monitoreo de flujos n8n</li>
+                    <li>Soporte de API WhatsApp</li>
+                    <li>Resolución de caídas en 24h</li>
+                </ul>
+                <a href="#contacto" class="btn-price">Solicitar Plan</a>
+            </div>
+
+            <div class="price-card popular">
+                <div style="position: absolute; top: -15px; right: 30px; background: var(--primary-color); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">MÁS ELEGIDO</div>
+                <h3>Arquitectura Enterprise</h3>
+                <div class="price">$350.000 <span>/mes</span></div>
+                <p style="color:var(--text-muted);">Para servidores dedicados y modelos locales.</p>
+                <ul class="features">
+                    <li>Todo lo del plan Standard</li>
+                    <li>Mantenimiento de Servidor Linux/Docker</li>
+                    <li>Actualización de modelos Ollama</li>
+                    <li>Soporte prioritario 24/7</li>
+                </ul>
+                <a href="#contacto" class="btn-price">Solicitar Plan</a>
             </div>
         </div>
     </section>
 
     <footer>
-        <h2>VOLTAIC<span style="color:#09f">SPA</span></h2>
-        <p>Sistemas Inteligentes & Automatización. Santiago, Chile.</p>
-        <p style="font-size: 0.8rem; color: #444; margin-top: 30px;">&copy; 2026 VoltaicSpA. Todos los derechos reservados.</p>
+        <div class="footer-logo">VOLTAIC<span>SPA</span></div>
+        <p>Expertos en Arquitectura de Sistemas, IA Local y Automatización de Procesos Comerciales.</p>
+        <p>Base de Operaciones: Santiago, Chile.</p>
+        <p style="margin-top: 40px; font-size: 0.9rem;">&copy; 2026 Cristian Godoy Marchant | VoltaicSpA. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Botón Flotante -->
-    <div class="voice-btn" id="voiceBtn" onclick="toggleChat()">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
-            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-            <line x1="12" y1="19" x2="12" y2="23"></line>
-            <line x1="8" y1="23" x2="16" y2="23"></line>
-        </svg>
-    </div>
+    <elevenlabs-convai agent-id="agent_4101krkj2n1jf04bxfhpbjmt3qzf"></elevenlabs-convai>
+    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
-    <!-- Interfaz Gemini Live -->
-    <div class="chat-modal" id="chatModal">
-        <div class="status" id="chatStatus">Asistente IA</div>
-        <div class="waves" id="waves">
-            <div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div>
-        </div>
-        <div class="user-text" id="userText">...</div>
-        <p style="color: #888; font-size: 0.9rem; margin: 0;" id="chatInstruction">Presiona el botón para hablar</p>
-    </div>
-
-    <script>
-        // Configuración de la API de Reconocimiento de Voz del navegador
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        let recognition;
-        let isRecording = false;
-
-        if (SpeechRecognition) {
-            recognition = new SpeechRecognition();
-            recognition.lang = 'es-CL'; // Español de Chile
-            recognition.interimResults = false;
-            recognition.maxAlternatives = 1;
-
-            recognition.onstart = function() {
-                isRecording = true;
-                updateUI('listening');
-            };
-
-            // Cuando el usuario termina de hablar
-            recognition.onresult = function(event) {
-                const transcript = event.results[0][0].transcript;
-                document.getElementById('userText').innerText = `"${transcript}"`;
-                
-                // Pasa el texto capturado a la función que genera la respuesta
-                processUserMessage(transcript);
-            };
-
-            recognition.onspeechend = function() {
-                recognition.stop();
-                isRecording = false;
-                document.getElementById('voiceBtn').classList.remove('recording');
-            };
-
-            recognition.onerror = function(event) {
-                console.error("Error en reconocimiento de voz: ", event.error);
-                document.getElementById('chatStatus').innerText = "Error de micrófono";
-                document.getElementById('chatStatus').style.color = "#f00";
-                isRecording = false;
-                document.getElementById('voiceBtn').classList.remove('recording');
-            };
-        } else {
-            alert("Tu navegador no soporta el reconocimiento de voz web. Usa Google Chrome.");
-        }
-
-        // Lógica de la interfaz
-        function toggleChat() {
-            const modal = document.getElementById('chatModal');
-            
-            if (!isRecording) {
-                modal.classList.add('active');
-                document.getElementById('voiceBtn').classList.add('recording');
-                document.getElementById('userText').innerText = "...";
-                
-                // Detener cualquier audio que esté sonando
-                window.speechSynthesis.cancel();
-                
-                // Iniciar escucha
-                try {
-                    recognition.start();
-                } catch(e) {
-                    console.log("Reconocimiento ya iniciado.");
-                }
-            } else {
-                recognition.stop();
-                modal.classList.remove('active');
-                document.getElementById('voiceBtn').classList.remove('recording');
-                window.speechSynthesis.cancel();
-                isRecording = false;
-            }
-        }
-
-        function updateUI(state) {
-            const modal = document.getElementById('chatModal');
-            const status = document.getElementById('chatStatus');
-            const instruction = document.getElementById('chatInstruction');
-
-            modal.classList.remove('listening', 'speaking');
-            
-            if(state === 'listening') {
-                modal.classList.add('listening');
-                status.innerText = "Te escucho...";
-                status.style.color = "#0f0";
-                instruction.innerText = "Habla ahora...";
-            } else if (state === 'speaking') {
-                modal.classList.add('speaking');
-                status.innerText = "Voltaic AI hablando...";
-                status.style.color = "#09f";
-                instruction.innerText = "Procesando...";
-            }
-        }
-
-        // Función que evalúa lo que dijiste y responde
-        function processUserMessage(text) {
-            updateUI('speaking');
-            
-            const lowerText = text.toLowerCase();
-            let response = "He recibido tu solicitud sobre " + text + ". En producción, esto se procesará directamente con la API de Gemini Live.";
-
-            // Lógica simple para simular inteligencia
-            if (lowerText.includes("hola") || lowerText.includes("buenos días")) {
-                response = "Hola Cristian, bienvenido al sistema. ¿En qué flujo de n 8 n deseas trabajar hoy?";
-            } else if (lowerText.includes("automatización") || lowerText.includes("automatizar")) {
-                response = "Perfecto. Podemos conectar tu base de datos mediante la API de WhatsApp para automatizar la atención a tus clientes. ¿Quieres que inicie el despliegue?";
-            } else if (lowerText.includes("servidor") || lowerText.includes("ollama") || lowerText.includes("linux")) {
-                response = "Revisando el servidor Linux. Recuerda que al usar Ollama garantizamos la soberanía total de los datos de tus clientes.";
-            }
-
-            // Usar la voz del navegador para responder
-            const utterance = new SpeechSynthesisUtterance(response);
-            utterance.lang = 'es-ES'; // Asegura que hable en español
-            utterance.rate = 1.05;
-
-            utterance.onend = function() {
-                const status = document.getElementById('chatStatus');
-                status.innerText = "Conexión Activa";
-                status.style.color = "#fff";
-                document.getElementById('chatModal').classList.remove('speaking');
-                document.getElementById('chatInstruction').innerText = "Presiona el micrófono para hablar de nuevo.";
-            };
-
-            window.speechSynthesis.speak(utterance);
-        }
-    </script>
 </body>
 </html>
